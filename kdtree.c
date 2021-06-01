@@ -4,12 +4,12 @@
 
 typedef struct Node{
 	Info info;
-	int point[2];
+	float point[2];
 	struct Node *left;
 	struct Node *right;
 } Node;
 
-Tree create_kdnode(int point[2], Info info) {
+Tree create_kdnode(float point[2], Info info) {
 	Node *tree = (Node *)malloc(sizeof(Node));
 	tree->left = NULL;
 	tree->right = NULL;
@@ -19,7 +19,7 @@ Tree create_kdnode(int point[2], Info info) {
 	return tree;
 }
 
-Tree insert_kd(Tree tree, int point[2], Info info, int depth){
+Tree insert_kd(Tree tree, float point[2], Info info, int depth){
 	Node* root = (Node*) tree;
 	int cd = depth%2;
 	if(root==NULL){
@@ -33,7 +33,7 @@ Tree insert_kd(Tree tree, int point[2], Info info, int depth){
 	return root;
 }
 
-Tree insert_kd_init(Tree tree, int point[2], Info info){
+Tree insert_kd_init(Tree tree, float point[2], Info info){
 	Node* root = (Node*) tree;
 	return insert_kd(root, point, info, 0);
 }
