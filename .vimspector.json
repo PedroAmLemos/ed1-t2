@@ -1,0 +1,18 @@
+{
+  "configurations": {
+    "Launch": {
+      "adapter": "vscode-cpptools",
+      "configuration": {
+        "request": "launch",
+        "program": "${fileDirname}/progr",
+        "args": [ ],
+        "cwd": "${cwd}",
+        "environment": [ ],
+        "externalConsole": true,
+		"stopOnEntry": true,
+		"stopAtEntry": true,
+        "MIMode": "gdb"
+      }
+    }
+  }
+}
