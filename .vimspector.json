@@ -9,8 +9,8 @@
         "cwd": "${cwd}",
         "environment": [ ],
         "externalConsole": true,
-		"stopOnEntry": true,
-		"stopAtEntry": true,
+		    "stopOnEntry": true,
+		    "stopAtEntry": true,
         "MIMode": "gdb"
       }
     }
