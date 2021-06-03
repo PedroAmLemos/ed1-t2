@@ -1,2 +1,5 @@
 src/*.o
 src/progr
+
+src/main.o
+src/kdtree.o

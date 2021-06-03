@@ -69,12 +69,43 @@ Tree get_left(Tree tree){
 	Node* root = (Node*) tree;
 	return root->left;
 }
-// Tree delete_node(Tree tree, float point[2], int depth){
-// 	Node* root = (Node*) tree;
-// 	int cd = depth%2;
-// 	if(root == NULL){
-// 		return root;
-// 	}
-// 	else if(point[cd] < root->point==point[cd])
-// }
+
+Tree min_key_node(Tree tree){
+	Node *current = (Node*) tree;
+	while(current && current->left != NULL){
+		current = current->left;
+	}
+	return current;
+}
+
+Tree delete_node(Tree tree, float point[2], int depth){
+	Node* root = (Node*) tree;
+	int cd = depth%2;
+	if(root == NULL){
+		return root;
+	}
+	if(point[cd] < root->point[cd]){
+		root->left = delete_node(root->left, point, depth+1);
+	}
+	else if(point[cd] > root->point[cd]){
+		root->right= delete_node(root->right, point, depth+1);
+	}
+	else{
+		if(root->left == NULL){
+			Node *tmp = root->right;
+			free(root);
+			return tmp;
+		}
+		else if(root->right == NULL){
+			Node *tmp = root->left;
+			free(root);
+			return tmp;
+		}
+		Node * tmp = min_key_node(root->right);
+		root->point[0] = tmp->point[0];
+		root->point[1] = tmp->point[1];
+		root->right = delete_node(root->right, tmp->point, depth + 1);
+	}
+	return root;
+}
 

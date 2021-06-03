@@ -13,4 +13,5 @@ void* get_point(Tree tree);
 void print_info(Tree tree);
 Tree get_right(Tree tree);
 Tree get_left(Tree tree);
-//Tree delete_node(Tree tree, float point[2], int depth);
+Tree min_key_node(Tree tree);
+Tree delete_node(Tree tree, float point[2], int depth);

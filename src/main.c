@@ -49,17 +49,25 @@ int main(int argc, char *argv[])
 		}
 		i++;
 	}
-	// float point[2] = {1, 1};
-	// int *inte = malloc(sizeof(int));
-	// *inte = 9;
-	// Tree tree = create_kdnode(point, inte);
-	// float* point1 = get_point(tree);
-	// printf("%f %f\n", point1[0], point1[1]);
-	// float point2[2] = {2, 2};
-	// tree = insert_kd_init(tree, point2, inte);
-	// *inte = 8;
-	// int* info2 = get_info(get_right(tree));
-	// printf("%d\n", *info2);
-	
+	/*float point[2] = {1, 1};*/
+	/*int *info_int= malloc(sizeof(int));*/
+	/**info_int = 10;*/
+	/*Tree tree = create_kdnode(point, info_int);*/
+	/*float* point_1_return = get_point(tree);*/
+	/*printf("%f %f\n", point_1_return[0], point_1_return[1]);*/
+	/*printf("%d\n", *((int*)(get_info(tree))));*/
+	/*float point2[2] = {2, 2};*/
+	/*int *info_int2 = malloc(sizeof(int));*/
+	/**info_int2 = 11;*/
+	/*tree = insert_kd_init(tree, point2, info_int2);*/
+	/*float *float_2_return = get_point(get_right(tree));*/
+	/*printf("%f %f\n", float_2_return[0], float_2_return[1]);*/
+	/*printf("%d\n", *((int*)(get_info(get_right(tree)))));*/
+	/*tree = delete_node(tree, point, 0);*/
+	/*float *after = get_point(tree);*/
+	/*printf("%f %f\n", after[0], after[1]);*/
+	/*printf("%d\n", *((int*)(get_info(tree))));*/
+	/*if(!get_right(tree)){printf("RIGHT == NULL\n");}*/
+	/*if(!get_left(tree)){printf("LEFT == NULL\n");}*/
 	return 0;
 }
