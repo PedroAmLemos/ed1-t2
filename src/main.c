@@ -48,28 +48,11 @@ int main(int argc, char *argv[])
       i++;
 	}
 	read(entryPath, geo, qry, outPath);
-    /*
-	Tree tree = NULL;
-	float points[][2] = {{30, 40}, {5, 25}, {70, 70}, {10, 12}, {50, 30}, {35, 45}};
-	int *info = malloc(sizeof(int));
-	*info = 2;
-	int n = sizeof(points)/sizeof(points[0]);
-	for (int i = 0; i < n; ++i)
-	{
-		tree = insert_kd_init(tree, points[i], info);
-	}
-	//Delete 30, 40
-	tree = delete_node_init(tree, points[0]);
-	float *point = get_point(tree);
-	printf("%f %f\n", point[0], point[1]);
-	*/
 	free(geo);
 	free(outPath);
 	if(entryPath)
 		free(entryPath);
 	if(qry)
 		free(qry);
-
-
 	return 0;
 }

@@ -11,12 +11,12 @@ char *concat_path_file(char *path, char *fileName){
 		strcat(concatenated, fileName);
 		return concatenated;
     } else {
-		  concatenated = malloc(sizeof(char) * (tamanho_nome + pathSize) + 2);
-		  strcpy(concatenated, path);
-		  concatenated[pathSize] = '/';
-		  concatenated[pathSize + 1] = '\0';
-		  strcat(concatenated, fileName);
-		  return concatenated;
+			concatenated = malloc(sizeof(char) * (tamanho_nome + pathSize) + 2);
+			strcpy(concatenated, path);
+			concatenated[pathSize] = '/';
+			concatenated[pathSize + 1] = '\0';
+			strcat(concatenated, fileName);
+			return concatenated;
     }
 }
 
