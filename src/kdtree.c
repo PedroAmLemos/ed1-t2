@@ -4,14 +4,14 @@
 #include "kdtree.h"
 
 typedef struct Node{
-	Info info;
+	_Info info;
 	float point[2];
 	struct Node *left;
 	struct Node *right;
-} Node;
+} Tree;
 
-Tree create_kdnode(float point[2], Info info) {
-	Node *tree = (Node *)malloc(sizeof(Node));
+_Tree create_kdnode(float point[2], _Info info) {
+	Tree *tree = (Tree *)malloc(sizeof(Tree));
 	tree->left = NULL;
 	tree->right = NULL;
 	tree->point[0] = point[0];
@@ -20,8 +20,8 @@ Tree create_kdnode(float point[2], Info info) {
 	return tree;
 }
 
-Tree insert_kd(Tree tree, float point[2], Info info, int depth){
-	Node* root = (Node*) tree;
+_Tree insert_kd(_Tree tree, float point[2], _Info info, int depth){
+	Tree* root = (Tree*) tree;
 	int cd = depth%2;
 	if(root==NULL){
           return create_kdnode(point, info);
@@ -34,12 +34,12 @@ Tree insert_kd(Tree tree, float point[2], Info info, int depth){
 	return root;
 }
 
-Tree insert_kd_init(Tree tree, float point[2], Info info){
+_Tree insert_kd_init(_Tree tree, float point[2], _Info info){
 	return insert_kd(tree, point, info, 0);
 }
 
-Tree search_key(Tree tree, float point[2], int depth){
-	Node* root = (Node*) tree;
+_Tree search_key(_Tree tree, float point[2], int depth){
+	Tree* root = (Tree*) tree;
 	int cd = depth%2;
 	if(root==NULL || root->point==point){
 		return root;
@@ -50,30 +50,30 @@ Tree search_key(Tree tree, float point[2], int depth){
 	return search_key(root->right, point, depth+1);
 }
 
-Info get_info(Tree tree){
-	Node* root = (Node*) tree;
+_Info get_info(_Tree tree){
+	Tree* root = (Tree*) tree;
 	return root->info;
 }
 
-void* get_point(Tree tree){
-	Node* root = (Node*) tree;
+void* get_point(_Tree tree){
+	Tree* root = (Tree*) tree;
 	return root->point;
 }
 
-Tree get_right(Tree tree){
-	Node* root = (Node*) tree;
+_Tree get_right(_Tree tree){
+	Tree* root = (Tree*) tree;
 	return root->right;
 }
 
-Tree get_left(Tree tree){
-	Node* root = (Node*) tree;
+_Tree get_left(_Tree tree){
+	Tree* root = (Tree*) tree;
 	return root->left;
 }
 
-Tree min_node(Tree x, Tree y, Tree z, int d){
-	Node *res = (Node*) x;
-	Node *yt  = (Node*) y;
-	Node *zt  = (Node*) z;
+_Tree min_node(_Tree x, _Tree y, _Tree z, int d){
+	Tree *res = (Tree*) x;
+	Tree *yt  = (Tree*) y;
+	Tree *zt  = (Tree*) z;
 	if(yt != NULL && yt->point[d] < res->point[d]){
 		res = y;
 	}
@@ -83,8 +83,8 @@ Tree min_node(Tree x, Tree y, Tree z, int d){
 	return res;
 }
 
-Tree find_min(Tree tree, int d, int depth){
-	Node* root = (Node*) tree;
+_Tree find_min(_Tree tree, int d, int depth){
+	Tree* root = (Tree*) tree;
 	int cd = depth % 2;
 	if(root == NULL){
 		return root;
@@ -98,7 +98,7 @@ Tree find_min(Tree tree, int d, int depth){
 	return min_node(root, find_min(root->left, d, depth+1), find_min(root->right, d, depth+1), d);
 }
 
-Tree find_min_init(Tree tree, int d){
+_Tree find_min_init(_Tree tree, int d){
 	return find_min(tree, d, 0);
 }
 
@@ -116,8 +116,8 @@ void copy_point(float point1[2], float point2[2]){
 		point1[i] = point2[i];
 	}
 }
-Tree delete_node(Tree tree, float point[2], int depth){
-	Node* root = (Node*) tree;
+_Tree delete_node(_Tree tree, float point[2], int depth){
+	Tree* root = (Tree*) tree;
 
 	if(root == NULL){
 		return root;
@@ -127,13 +127,13 @@ Tree delete_node(Tree tree, float point[2], int depth){
 	if(is_equal(root->point, point)){
 
 		if(root->right != NULL){
-			Node *min = find_min_init(root->right, cd);
+			Tree *min = find_min_init(root->right, cd);
 			copy_point(root->point, min->point);
 			root->right = delete_node(root->right, min->point, depth+1);
 		}
 
 		else if(root->left != NULL){
-			Node *min = find_min_init(root->left, cd);
+			Tree *min = find_min_init(root->left, cd);
 			copy_point(root->point, min->point);
 			root->left = delete_node(root->left, min->point, depth+1);
 		}
@@ -155,6 +155,20 @@ Tree delete_node(Tree tree, float point[2], int depth){
 	
 	return root;
 }
-Tree delete_node_init(Tree tree, float point[2]){
+
+_Tree delete_node_init(_Tree tree, float point[2]){
 	return delete_node(tree, point, 0);
+}
+
+void delete_tree(_Tree tree){
+	Tree *root = tree;
+	if(root == NULL){
+		return;
+	}
+	delete_tree(root->right);
+	delete_tree(root->left);
+	if(root->info != NULL){
+		free(root->info);
+	}
+	free(root);
 }

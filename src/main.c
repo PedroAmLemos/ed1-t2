@@ -49,18 +49,26 @@ int main(int argc, char *argv[])
 		}
 		i++;
 	}
-	Tree tree = NULL;
+	_Tree tree = NULL;
 	float points[][2] = {{30, 40}, {5, 25}, {70, 70}, {10, 12}, {50, 30}, {35, 45}};
-	int *info = malloc(sizeof(int));
-	*info = 2;
-	int n = sizeof(points)/sizeof(points[0]);
-	for (int i = 0; i < n; ++i)
-	{
-		tree = insert_kd_init(tree, points[i], info);
-	}
-	//Delete 30, 40
-	tree = delete_node_init(tree, points[0]);
-	float *point = get_point(tree);
-	printf("%f %f\n", point[0], point[1]);
+	int *info1 = malloc(sizeof(int));
+	int *info2 = malloc(sizeof(int));
+	int *info3 = malloc(sizeof(int));
+	int *info4 = malloc(sizeof(int));
+	int *info5 = malloc(sizeof(int));
+	int *info6 = malloc(sizeof(int));
+	*info1 = 1;
+	*info2 = 2;
+	*info3 = 3;
+	*info4 = 4;
+	*info5 = 5;
+	*info6 = 6;
+	tree = insert_kd_init(tree, points[0], info1);
+	tree = insert_kd_init(tree, points[1], info2);
+	tree = insert_kd_init(tree, points[2], info3);
+	tree = insert_kd_init(tree, points[3], info4);
+	tree = insert_kd_init(tree, points[4], info5);
+	tree = insert_kd_init(tree, points[5], info6);
+	delete_tree(tree);
 	return 0;
 }
