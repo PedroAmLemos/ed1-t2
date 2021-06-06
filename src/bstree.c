@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 typedef struct root {
-	int key;
+	float key;
 	vInfo data;
 	struct root *left;
 	struct root *right;

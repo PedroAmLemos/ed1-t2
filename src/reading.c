@@ -1,11 +1,10 @@
-#include "reading.h"
-#include "reading_utility.h"
-#include "svg.h"
-#include "geo_treat.h"
-#include "qry_treat.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "reading.h"
+#include "reading_utility.h"
+#include "arq_treat.h"
+
 
 void read(char *entryPath, char *geo, char *qry, char *outPath){
 	char *outPathGEO = NULL; //out path + geo name
@@ -68,10 +67,14 @@ void read(char *entryPath, char *geo, char *qry, char *outPath){
 		qrySVGFile = fopen(qrySVG, "w"); // mudar para uma funcao que cria tag
 		qryTXTFile = fopen(qryTXT, "w");
 	}
-
+	// funcao(arquivo de comandos do qry, e o arquivo de comandos geo)
+		// criar as arvores
+		// preenche o svg do geo
+		// faz os comando do qry
+	main_treatment(geoFile, qryFile, geoSVGFile, qrySVGFile, qryTXTFile);
+	
 	// aqui devem ter duas arvores preenchidas com os comandos do .geo, tanto de circulos quanto de retangulos
 	// o preenchimento deve ser feito no geotreat
-	//
 	// receber a arvore
 	// passar para o qry treat
 	// deletar a arvore
