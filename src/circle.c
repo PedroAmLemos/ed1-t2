@@ -17,3 +17,9 @@ _Circle create_circle(char id[40], char bc[40], char pc[40], float x, float y, f
 	new_circle->r = r;
 	return new_circle;
 }
+
+char *get_circle_id(_Circle circle){
+	structCircle *circ = circle;
+	return circ->id;
+}
+

@@ -25,37 +25,36 @@ char *get_rect_id(_Rect rectangle) {
 	return rect->id;
 }
 
-float get_x(_Rect rectangle){
+float get_rect_x(_Rect rectangle){
 	structRect *rect = (structRect*) rectangle;
 	return rect->point[0];
 }
 
-float get_y(_Rect rectangle){
-	structRect *rect = (structRect*) rectangle;
+float get_rect_y(_Rect rectangle) {
+	structRect *rect = (structRect *)rectangle;
 	return rect->point[1];
 }
 
-float *get_x_y(_Rect rectangle){
-	float *point = malloc(sizeof(float)*2);
-	structRect *rect = (structRect*) rectangle;
+float *get_rect_point(_Rect rectangle) {
+	float *point = malloc(sizeof(float) * 2);
+	structRect *rect = (structRect *)rectangle;
 	point[0] = rect->point[0];
 	point[1] = rect->point[1];
 	return point;
 }
 
-void change_x(_Rect rectangle, float new_x){
-	structRect *rect = (structRect*) rectangle;
+void change_rect_x(_Rect rectangle, float new_x) {
+	structRect *rect = (structRect *)rectangle;
 	rect->point[0] = new_x;
 }
 
-void change_y(_Rect rectangle, float new_y){
-	structRect *rect = (structRect*) rectangle;
+void change_rect_y(_Rect rectangle, float new_y) {
+	structRect *rect = (structRect *)rectangle;
 	rect->point[1] = new_y;
 }
 
-void change_x_y(_Rect rectangle, float new_x, float new_y){
-	structRect *rect = (structRect*) rectangle;
-	change_x(rect, new_x);
-	change_y(rect, new_y);
+void change_rect_point(_Rect rectangle, float new_x, float new_y) {
+	structRect *rect = (structRect *)rectangle;
+	change_rect_x(rect, new_x);
+	change_rect_y(rect, new_y);
 }
-
