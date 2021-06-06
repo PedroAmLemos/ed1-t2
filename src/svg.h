@@ -9,4 +9,6 @@ void print_circle_to_svg(FILE *svgFile, _Tree tree);
 
 void close_SVG(FILE *svgFile);
 
+void print_rect_to_svg(FILE *svgFile, _Tree tree);
+
 #endif /* ifndef __SVG__ */

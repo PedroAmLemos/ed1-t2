@@ -49,7 +49,7 @@ void main_treatment(FILE *geoFile, FILE *qryFile, FILE *geoSVG, FILE *qrySVG, FI
 
 	open_SVG(geoSVG);
 	print_circle_to_svg(geoSVG, circle_tree);
-	/*print_rect_to_svg(geoSVG, rect_tree);*/
+	print_rect_to_svg(geoSVG, rect_tree);
 	close_SVG(geoSVG);
 
 	delete_tree(circle_tree);
