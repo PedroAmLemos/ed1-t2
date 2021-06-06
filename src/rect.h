@@ -1,3 +1,4 @@
+#include <stdio.h>
 #ifndef __RECT__
 #define __RECT__ 
 typedef void* _Rect;
@@ -17,5 +18,7 @@ void change_rect_x(_Rect rectangle, float new_x);
 void change_rect_y(_Rect rectangle, float new_y);
 
 void change_rect_point(_Rect rectangle, float new_x, float new_y);
+
+void print_rect(FILE *svgFile, _Rect rectangle);
 
 #endif /* ifndef __RECT__ */

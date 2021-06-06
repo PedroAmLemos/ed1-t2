@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "circle.h"
+#include "rect.h"
 typedef struct circle{
 	char id[40], bc[40], pc[40];
 	float point[2], r;
@@ -23,3 +24,37 @@ char *get_circle_id(_Circle circle){
 	return circ->id;
 }
 
+float get_circle_x(_Circle circle){
+	structCircle *circ = circle;
+	return circ->point[0];
+}
+
+float get_circle_y(_Circle circle){
+	structCircle *circ = circle;
+	return circ->point[1];
+}
+
+float *get_circle_point(_Circle circle){
+	structCircle *circ = circle;
+	return circ->point;
+}
+
+void change_circle_x(_Circle circle, float new_x){
+	structCircle *circ = circle;
+	circ->point[0] = new_x;
+}
+
+void change_circle_y(_Circle circle, float new_y){
+	structCircle *circ = circle;
+	circ->point[1] = new_y;
+}
+
+void change_circle_point(_Circle circle, float new_x, float new_y){
+	change_circle_x(circle, new_x);
+	change_circle_y(circle, new_y);
+}
+
+void print_circle(FILE *svgFile, _Rect circle){
+	structCircle *circ = (structCircle *) circle;
+	fprintf(svgFile,"\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"%s\" stroke=\"%s\"/>\n", get_circle_x(circ), get_circle_y(circ), circ->r, circ->pc, circ->bc);
+}

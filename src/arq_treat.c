@@ -46,6 +46,12 @@ void main_treatment(FILE *geoFile, FILE *qryFile, FILE *geoSVG, FILE *qrySVG, FI
 			circle_tree = insert_kd_init(circle_tree, point, circle);
 		}
 	}
+
+	open_SVG(geoSVG);
+	print_circle_to_svg(geoSVG, circle_tree);
+	/*print_rect_to_svg(geoSVG, rect_tree);*/
+	close_SVG(geoSVG);
+
 	delete_tree(circle_tree);
 	delete_tree(rect_tree);
 }

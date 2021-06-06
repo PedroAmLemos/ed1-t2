@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "kdtree.h"
+#include "rect.h"
+#include "circle.h"
 
 typedef struct Node{
 	_Info info;
@@ -60,12 +62,12 @@ void* get_point(_Tree tree){
 	return root->point;
 }
 
-_Tree get_right(_Tree tree){
+_Tree get_kd_right(_Tree tree){
 	Tree* root = (Tree*) tree;
 	return root->right;
 }
 
-_Tree get_left(_Tree tree){
+_Tree get_kd_left(_Tree tree){
 	Tree* root = (Tree*) tree;
 	return root->left;
 }
@@ -172,3 +174,12 @@ void delete_tree(_Tree tree){
 	}
 	free(root);
 }
+
+bool is_null(_Tree tree){
+	Tree *root = tree;
+	if (root == NULL){
+		return true;
+	}
+	return false;
+}
+

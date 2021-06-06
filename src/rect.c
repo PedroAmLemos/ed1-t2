@@ -36,11 +36,8 @@ float get_rect_y(_Rect rectangle) {
 }
 
 float *get_rect_point(_Rect rectangle) {
-	float *point = malloc(sizeof(float) * 2);
 	structRect *rect = (structRect *)rectangle;
-	point[0] = rect->point[0];
-	point[1] = rect->point[1];
-	return point;
+	return rect->point;
 }
 
 void change_rect_x(_Rect rectangle, float new_x) {
@@ -54,7 +51,11 @@ void change_rect_y(_Rect rectangle, float new_y) {
 }
 
 void change_rect_point(_Rect rectangle, float new_x, float new_y) {
+	change_rect_x(rectangle, new_x);
+	change_rect_y(rectangle, new_y);
+}
+
+void print_rect(FILE *svgFile, _Rect rectangle){
 	structRect *rect = (structRect *)rectangle;
-	change_rect_x(rect, new_x);
-	change_rect_y(rect, new_y);
+    fprintf(svgFile,"\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" fill=\"%s\" stroke=\"%s\"/>\n",get_rect_x(rect),get_rect_y(rect), rect->w, rect->h, rect->cc, rect->cp);
 }
