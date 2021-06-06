@@ -1,7 +1,2 @@
 src/*.o
 src/progr
-
-
-output/geoname-qryname.svg
-output/geoname-qryname.txt
-output/geoname.svg
