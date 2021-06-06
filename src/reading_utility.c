@@ -30,10 +30,14 @@ char *get_file_name(char *path){
 
 char *copy_file_name(char *origin){
 	char *aux = (char *)malloc(sizeof(char) * (strlen(origin) + 1));
+	char *aux2 = aux;
 	char *name = NULL;
 	strcpy(aux, origin);
 	name = get_file_name(aux);
-	return name;
+	char *return_name = malloc(sizeof(char)*(strlen(name)+1));
+	strcpy(return_name, name);
+	free(aux2);
+	return return_name;
 }
 
 char *copy(char *origin){
