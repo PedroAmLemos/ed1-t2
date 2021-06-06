@@ -1,2 +1,6 @@
 src/*.o
 src/progr
+testes-t2/
+output
+
+testes.py

@@ -1,9 +1,8 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include "void_pointers.h"
 #ifndef __KDTREE__
 #define __KDTREE__ 
-typedef void* _Tree;
-typedef void* _Info;
 
 _Tree create_kdnode(float point[2], _Info info);
 _Tree insert_kd(_Tree tree, float point[2], _Info info, int depth);

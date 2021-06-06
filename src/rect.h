@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include "void_pointers.h"
 #ifndef __RECT__
 #define __RECT__ 
-typedef void* _Rect;
 
 _Rect create_rect(char id[40], char cc[40], char cp[40], float x, float y, float w, float h);
 
