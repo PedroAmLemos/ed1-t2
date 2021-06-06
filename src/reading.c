@@ -71,7 +71,7 @@ void read(char *entryPath, char *geo, char *qry, char *outPath){
 	main_treatment(geoFile, qryFile, geoSVGFile, qrySVGFile, qryTXTFile);
 
 	/* ---Free mallocs and closing files--*/
-	/*free(geoName);*/
+	free(geoName);
 	free(geoPath);
 	free(outPathGEO);
 	free(geoSVG);
