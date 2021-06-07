@@ -118,16 +118,14 @@ void copy_point(float point1[2], float point2[2]){
 		point1[i] = point2[i];
 	}
 }
-_Tree delete_node(_Tree tree, float point[2], int depth){
+_Tree delete_node(_Tree tree, float *point, int depth){
 	Tree* root = (Tree*) tree;
-
+	int cd = depth % 2;
 	if(root == NULL){
 		return root;
 	}
-	int cd = depth % 2;
 
 	if(is_equal(root->point, point)){
-
 		if(root->right != NULL){
 			Tree *min = find_min_init(root->right, cd);
 			copy_point(root->point, min->point);
@@ -141,10 +139,13 @@ _Tree delete_node(_Tree tree, float point[2], int depth){
 		}
 
 		else{
-			if(root->info != NULL){
-				free(root->info);
+			if(root != NULL){
+				if(root->info != NULL){
+					free(root->info);
+				}
+				free(root);
 			}
-			free(root);
+			return NULL;
 		}
 	}
 
@@ -158,7 +159,7 @@ _Tree delete_node(_Tree tree, float point[2], int depth){
 	return root;
 }
 
-_Tree delete_node_init(_Tree tree, float point[2]){
+_Tree delete_node_init(_Tree tree, float *point){
 	return delete_node(tree, point, 0);
 }
 

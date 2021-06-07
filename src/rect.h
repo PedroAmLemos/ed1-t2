@@ -7,6 +7,10 @@ _Rect create_rect(char id[40], char cc[40], char cp[40], float x, float y, float
 
 char *get_rect_id(_Rect rect);
 
+float get_rect_w(_Rect rectangle);
+
+float get_rect_h(_Rect rectangle);
+
 float get_rect_x(_Rect rectangle);
 
 float get_rect_y(_Rect rectangle);

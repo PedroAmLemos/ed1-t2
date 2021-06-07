@@ -46,12 +46,12 @@ void main_treatment(FILE *geoFile, FILE *qryFile, FILE *geoSVG, FILE *qrySVG, FI
 		}
 	}
 	/*---Making the geo svg---*/
-	open_SVG(geoSVG);
-	print_circle_to_svg(geoSVG, circle_tree);
-	print_rect_to_svg(geoSVG, rect_tree);
-	close_SVG(geoSVG);
+	fill_svg(rect_tree, circle_tree, geoSVG);
+
 	/*------------------------*/
 	/*---Making the svg and txt qry--*/
+	if(qryFile)
+		rect_tree = main_qry(rect_tree, circle_tree, qryFile, qryTXT, qrySVG);
 
 	delete_tree(circle_tree);
 	delete_tree(rect_tree);

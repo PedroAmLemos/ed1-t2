@@ -25,6 +25,16 @@ char *get_rect_id(_Rect rectangle) {
 	return rect->id;
 }
 
+float get_rect_w(_Rect rectangle){
+	structRect *rect = (structRect*) rectangle;
+	return rect->w;
+}
+
+float get_rect_h(_Rect rectangle){
+	structRect *rect = (structRect*) rectangle;
+	return rect->h;
+}
+
 float get_rect_x(_Rect rectangle){
 	structRect *rect = (structRect*) rectangle;
 	return rect->point[0];

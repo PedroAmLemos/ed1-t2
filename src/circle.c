@@ -6,7 +6,7 @@
 typedef struct circle{
 	char id[40], bc[40], pc[40];
 	float point[2], r;
-        int radiation;
+	int radiation;
 }structCircle;
 
 _Circle create_circle(char id[40], char bc[40], char pc[40], float x, float y, float r){
