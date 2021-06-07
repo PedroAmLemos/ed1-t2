@@ -74,5 +74,6 @@ void change_circle_point(_Circle circle, float new_x, float new_y){
 
 void print_circle(FILE *svgFile, _Rect circle){
 	structCircle *circ = (structCircle *) circle;
-	fprintf(svgFile,"\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"%s\" stroke=\"%s\"/>\n", get_circle_x(circ), get_circle_y(circ), circ->r, circ->pc, circ->bc);
+	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" stroke=\"%s\"/>\n", get_circle_x(circ), get_circle_y(circ), circ->r, circ->pc, circ->bc);
+	fprintf(svgFile,"\t<text text-anchor=\"middle\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">%s</text>", get_circle_x(circ), get_circle_y(circ), get_circle_id(circ));
 }

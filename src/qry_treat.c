@@ -41,6 +41,10 @@ _Tree main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile,
 			fscanf(qryFile, "%f %f", &x, &y);
 			rect_tree = dpi(rect_tree, x, y, txtFile);
 		}
+		else if((strcmp(aux, "dr"))==0){
+			fprintf(txtFile, "dpi\n");
+			fscanf(qryFile, "%s", id);
+		}
 	}
 	fill_svg(rect_tree, circle_tree, svgFile);
 	return rect_tree;
