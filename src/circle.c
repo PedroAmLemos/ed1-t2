@@ -6,6 +6,7 @@
 typedef struct circle{
 	char id[40], bc[40], pc[40];
 	float point[2], r;
+        int radiation;
 }structCircle;
 
 _Circle create_circle(char id[40], char bc[40], char pc[40], float x, float y, float r){
@@ -16,6 +17,7 @@ _Circle create_circle(char id[40], char bc[40], char pc[40], float x, float y, f
 	new_circle->point[0] = x;
 	new_circle->point[1] = y;
 	new_circle->r = r;
+	new_circle->radiation = 0;
 	return new_circle;
 }
 
@@ -37,6 +39,22 @@ float get_circle_y(_Circle circle){
 float *get_circle_point(_Circle circle){
 	structCircle *circ = circle;
 	return circ->point;
+}
+
+int get_radiation(_Circle circle){
+	structCircle *circ = circle;
+	return circ->radiation;
+
+}
+
+void change_radiation(_Circle circle, int new_rad){
+	structCircle *circ = circle;
+	circ->radiation = new_rad;
+}
+
+void add_radiation(_Circle circle, int rad){
+	structCircle *circ = circle;
+	circ->radiation += rad;
 }
 
 void change_circle_x(_Circle circle, float new_x){

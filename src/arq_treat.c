@@ -51,6 +51,7 @@ void main_treatment(FILE *geoFile, FILE *qryFile, FILE *geoSVG, FILE *qrySVG, FI
 	print_rect_to_svg(geoSVG, rect_tree);
 	close_SVG(geoSVG);
 	/*------------------------*/
+	/*---Making the svg and txt qry--*/
 
 	delete_tree(circle_tree);
 	delete_tree(rect_tree);
