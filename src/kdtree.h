@@ -7,7 +7,7 @@
 _Tree create_kdnode(float point[2], _Info info);
 _Tree insert_kd(_Tree tree, float point[2], _Info info, int depth);
 _Tree insert_kd_init(_Tree tree, float point[2], _Info info);
-_Tree search_key(_Tree tree, float point[2], int depth);
+void find_point_search_key(_Tree tree, char id[], float *result);
 _Info get_info(_Tree tree);
 void* get_point(_Tree tree);
 void print_info(_Tree tree);

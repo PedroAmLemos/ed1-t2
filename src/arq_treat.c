@@ -48,8 +48,7 @@ void main_treatment(FILE *geoFile, FILE *qryFile, FILE *geoSVG, FILE *qrySVG, FI
 	/*---Making the geo svg---*/
 	fill_svg(rect_tree, circle_tree, geoSVG);
 
-	/*------------------------*/
-	/*---Making the svg and txt qry--*/
+	/*---Making the qry svg and qry txt--*/
 	if(qryFile)
 		main_qry(rect_tree, circle_tree, qryFile, qryTXT, qrySVG);
 	else{

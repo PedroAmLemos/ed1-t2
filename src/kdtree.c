@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "kdtree.h"
@@ -42,16 +43,31 @@ _Tree insert_kd_init(_Tree tree, float point[2], _Info info){
 	return insert_kd(tree, point, info, 0);
 }
 
-_Tree search_key(_Tree tree, float point[2], int depth){
+void find_point_search_key(_Tree tree, char id[], float *result){
 	Tree* root = (Tree*) tree;
-	int cd = depth%2;
-	if(root==NULL || root->point==point){
-		return root;
+	if(root == NULL || (result[0] && result[1] && result[2] && result[3])){
+		return;
 	}
-	if(point[cd] < root->point[cd]){
-		return search_key(root->left, point, depth+1);
+
+	find_point_search_key(root->left, id, result);
+	find_point_search_key(root->right, id, result);
+
+	_Rect rect = get_info(root);
+	char *idToCompare = get_rect_id(rect);
+	float rect_data[4];
+	rect_data[0] = get_rect_x(get_info(root));
+	rect_data[1] = get_rect_y(get_info(root));
+	rect_data[2] = get_rect_w(get_info(root));
+	rect_data[3] = get_rect_h(get_info(root));
+	if((strcmp(idToCompare, id))==0){
+		copy_point(result, get_rect_point(rect));
+		result[0] = rect_data[0];
+		result[1] = rect_data[1];
+		result[2] = rect_data[2];
+		result[3] = rect_data[3];
+		return;
 	}
-	return search_key(root->right, point, depth+1);
+	return;
 }
 
 _Info get_info(_Tree tree){
