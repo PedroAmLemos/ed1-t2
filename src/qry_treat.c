@@ -33,16 +33,14 @@ _Tree dpi(_Tree rect_tree, float x, float y, FILE *txtFile, _List dpi_remove){
 	return rect_tree;
 }
 
-void remove_dpi_points(_List dpi_remove, _Tree rect_tree){
+_Tree remove_dpi_points(_List dpi_remove, _Tree rect_tree){
 	float *point;
 	_Rect rect;
 	for(_Node node = get_first(dpi_remove); node!=NULL; node=get_next(node)){
 		rect = get_list_info(node);
-		printf("%f %f\n", get_rect_x(rect), get_rect_y(rect));
 		rect_tree = delete_node_init(rect_tree, get_rect_point(rect), swap_two_rect);
 	}
-	/*rect_tree = delete_node_init(rect_tree, point, swap_two_rect);*/
-
+	return rect_tree;
 }
 
 void main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile, FILE *svgFile){
@@ -56,13 +54,14 @@ void main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile, 
 			fprintf(txtFile, "dpi\n");
 			fscanf(qryFile, "%f %f", &x, &y);
 			rect_tree = dpi(rect_tree, x, y, txtFile, dpi_remove_points);
-			remove_dpi_points(dpi_remove_points, rect_tree);
+			rect_tree = remove_dpi_points(dpi_remove_points, rect_tree);
 		}
 		else if((strcmp(aux, "dr"))==0){
 			fprintf(txtFile, "dpi\n");
 			fscanf(qryFile, "%s", id);
 		}
 	}
-	delete_list(dpi_remove_points, 0);
 	fill_svg(rect_tree, circle_tree, svgFile);
+	delete_list(dpi_remove_points, 0);
+	delete_tree(rect_tree);
 }
