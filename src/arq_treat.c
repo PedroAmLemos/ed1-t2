@@ -50,7 +50,7 @@ void main_treatment(FILE *geoFile, FILE *qryFile, FILE *geoSVG, FILE *qrySVG, FI
 	/*printf("ID DO LEFT DO ROOT ::::::: %f %f\n", get_rect_x(get_info(get_kd_left(rect_tree))), get_rect_y(get_info(get_kd_left(rect_tree))));*/
 	/*printf("ID DO RIGHT DO ROOT ::::::: %f %f\n", get_rect_x(get_info(get_kd_right(rect_tree))), get_rect_y(get_info(get_kd_right(rect_tree))));*/
 	fill_svg(rect_tree, circle_tree, geoSVG);
-	float test_point[2] = {220, 28.756443};
+	/*float test_point[2] = {220, 28.756443};*/
 	/*rect_tree = delete_node_init(rect_tree, test_point, swap_two_rect);*/
 
 	/*printf("%s\n", get_rect_id(get_info(rect_tree)));*/
@@ -61,5 +61,5 @@ void main_treatment(FILE *geoFile, FILE *qryFile, FILE *geoSVG, FILE *qrySVG, FI
 		main_qry(rect_tree, circle_tree, qryFile, qryTXT, qrySVG);
 
 	delete_tree(circle_tree);
-	delete_tree(rect_tree);
+	/*delete_tree(rect_tree);*/
 }

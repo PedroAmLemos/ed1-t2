@@ -28,17 +28,21 @@ _Tree dpi(_Tree rect_tree, float x, float y, FILE *txtFile, _List dpi_remove){
 	rectH = get_rect_h(rectangle);
 	if(point_is_inside(x, y, 0, 0, point[0], point[1], rectW, rectH)) {
 	  fprintf(txtFile, "%s\n", get_rect_id(rectangle));
-	  insert_list(point, dpi_remove);
+	  insert_list(rectangle, dpi_remove);
 	}
 	return rect_tree;
 }
 
 void remove_dpi_points(_List dpi_remove, _Tree rect_tree){
 	float *point;
+	_Rect rect;
 	for(_Node node = get_first(dpi_remove); node!=NULL; node=get_next(node)){
-		point = get_list_info(node);
-		rect_tree = delete_node_init(rect_tree, get_list_info(node), swap_two_rect);
+		rect = get_list_info(node);
+		printf("%f %f\n", get_rect_x(rect), get_rect_y(rect));
+		rect_tree = delete_node_init(rect_tree, get_rect_point(rect), swap_two_rect);
 	}
+	/*rect_tree = delete_node_init(rect_tree, point, swap_two_rect);*/
+
 }
 
 void main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile, FILE *svgFile){
