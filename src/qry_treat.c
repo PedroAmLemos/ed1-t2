@@ -28,17 +28,19 @@ _Tree dpi(_Tree rect_tree, float x, float y, FILE *txtFile, _List dpi_remove){
 	rectH = get_rect_h(rectangle);
 	if(point_is_inside(x, y, 0, 0, point[0], point[1], rectW, rectH)) {
 	  fprintf(txtFile, "%s\n", get_rect_id(rectangle));
-	  insert_list(rectangle, dpi_remove);
+	  float *point_remove = malloc(sizeof(float)*2);
+	  point_remove[0] = point[0];
+	  point_remove[1] = point[1];
+	  insert_list(point_remove, dpi_remove);
 	}
 	return rect_tree;
 }
 
 _Tree remove_dpi_points(_List dpi_remove, _Tree rect_tree){
 	float *point;
-	_Rect rect;
 	for(_Node node = get_first(dpi_remove); node!=NULL; node=get_next(node)){
-		rect = get_list_info(node);
-		rect_tree = delete_node_init(rect_tree, get_rect_point(rect), swap_two_rect);
+		point = get_list_info(node);
+		rect_tree = delete_node_init(rect_tree, point, swap_two_rect);
 	}
 	return rect_tree;
 }
@@ -62,6 +64,6 @@ void main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile, 
 		}
 	}
 	fill_svg(rect_tree, circle_tree, svgFile);
-	delete_list(dpi_remove_points, 0);
+	delete_list(dpi_remove_points, 1);
 	delete_tree(rect_tree);
 }

@@ -20,9 +20,6 @@ int is_equal(float point1[2], float point2[2]); // Determina se dois pontos sao 
 void copy_point(float point1[2], float point[2]);
 _Tree delete_node_init(_Tree tree, float *point, void (*swap)(_Info, _Info));
 void delete_tree(_Tree tree);
-//void print_circle_to_svg(FILE *svgFile, _Tree tree);
-//void print_rect_to_svg(FILE *svgFile, _Tree tree);
 bool is_null(_Tree tree);
-void fodace(_Tree tree);
 
 #endif /* ifndef __KDTREE__ */

@@ -145,6 +145,7 @@ _Tree delete_node(_Tree tree, float *point, int depth, void (*swap)(_Info, _Info
 			copy_point(root->point, min->point);
 			swap(root->info, min->info);
 			root->right = delete_node(root->left, min->point, depth+1, swap);
+			root->left = NULL;
 		}
 
 		else{
@@ -191,8 +192,3 @@ bool is_null(_Tree tree){
 	}
 	return false;
 }
-
-void fodace(_Tree tree){
-	Tree *root = tree;
-}
-

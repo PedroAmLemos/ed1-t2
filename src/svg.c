@@ -7,7 +7,7 @@
 
 void open_SVG(FILE *svgFile){
 	// fprintf(svgFile, "<!-- Pedro Antonio Messias Lemos -->\n<svg>\n");
-	fprintf(svgFile, "<svg version=\"1.1\" baseProfile=\"full\" width=\"10000\" height=\"10000\" xmlns=\"http://www.w3.org/2000/svg\">");
+	fprintf(svgFile, "<svg version=\"1.1\" baseProfile=\"full\" width=\"10000\" height=\"10000\" xmlns=\"http://www.w3.org/2000/svg\">\n");
 
 }
 
