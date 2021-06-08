@@ -46,12 +46,19 @@ void main_treatment(FILE *geoFile, FILE *qryFile, FILE *geoSVG, FILE *qrySVG, FI
 		}
 	}
 	/*---Making the geo svg---*/
+	/*printf("ID PRIMEIRO :::::: %f %f\n", get_rect_x(get_info(rect_tree)), get_rect_y(get_info(rect_tree)));*/
+	/*printf("ID DO LEFT DO ROOT ::::::: %f %f\n", get_rect_x(get_info(get_kd_left(rect_tree))), get_rect_y(get_info(get_kd_left(rect_tree))));*/
+	/*printf("ID DO RIGHT DO ROOT ::::::: %f %f\n", get_rect_x(get_info(get_kd_right(rect_tree))), get_rect_y(get_info(get_kd_right(rect_tree))));*/
 	fill_svg(rect_tree, circle_tree, geoSVG);
+	float test_point[2] = {290, 150};
+	rect_tree = delete_node_init(rect_tree, test_point);
+
+	/*printf("%s\n", get_rect_id(get_info(rect_tree)));*/
 
 	/*------------------------*/
 	/*---Making the svg and txt qry--*/
 	if(qryFile)
-		rect_tree = main_qry(rect_tree, circle_tree, qryFile, qryTXT, qrySVG);
+		main_qry(rect_tree, circle_tree, qryFile, qryTXT, qrySVG);
 
 	delete_tree(circle_tree);
 	delete_tree(rect_tree);

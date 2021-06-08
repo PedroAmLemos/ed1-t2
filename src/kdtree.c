@@ -24,14 +24,16 @@ _Tree create_kdnode(float point[2], _Info info) {
 
 _Tree insert_kd(_Tree tree, float point[2], _Info info, int depth){
 	Tree* root = (Tree*) tree;
-	int cd = depth%2;
 	if(root==NULL){
-          return create_kdnode(point, info);
+		return create_kdnode(point, info);
     }
+
+	int cd = depth%2;
+
 	if(point[cd] < root->point[cd]){
 		root->left = insert_kd(root->left, point, info, depth+1);	
 	}else{
-		root->right= insert_kd(root->right, point, info, depth+1);	
+		root->right = insert_kd(root->right, point, info, depth+1);	
 	}
 	return root;
 }
@@ -87,10 +89,13 @@ _Tree min_node(_Tree x, _Tree y, _Tree z, int d){
 
 _Tree find_min(_Tree tree, int d, int depth){
 	Tree* root = (Tree*) tree;
-	int cd = depth % 2;
+
 	if(root == NULL){
 		return root;
 	}
+
+	int cd = depth % 2;
+
 	if(cd == d){
 		if(root->left == NULL){
 			return root;
@@ -104,13 +109,13 @@ _Tree find_min_init(_Tree tree, int d){
 	return find_min(tree, d, 0);
 }
 
-bool is_equal(float point1[2], float point2[2]){
+int is_equal(float point1[2], float point2[2]){
 	for(int i = 0; i < 2; i++){
 		if(point1[i] != point2[i]){
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 void copy_point(float point1[2], float point2[2]){
@@ -120,12 +125,13 @@ void copy_point(float point1[2], float point2[2]){
 }
 _Tree delete_node(_Tree tree, float *point, int depth){
 	Tree* root = (Tree*) tree;
-	int cd = depth % 2;
 	if(root == NULL){
 		return root;
 	}
 
-	if(is_equal(root->point, point)){
+	int cd = depth % 2;
+
+	if(is_equal(root->point, point)==1){
 		if(root->right != NULL){
 			Tree *min = find_min_init(root->right, cd);
 			copy_point(root->point, min->point);
@@ -139,12 +145,10 @@ _Tree delete_node(_Tree tree, float *point, int depth){
 		}
 
 		else{
-			if(root != NULL){
-				if(root->info != NULL){
-					free(root->info);
-				}
-				free(root);
+			if(root->info != NULL){
+				free(root->info);
 			}
+			free(root);
 			return NULL;
 		}
 	}
@@ -182,5 +186,9 @@ bool is_null(_Tree tree){
 		return true;
 	}
 	return false;
+}
+
+void fodace(_Tree tree){
+	Tree *root = tree;
 }
 
