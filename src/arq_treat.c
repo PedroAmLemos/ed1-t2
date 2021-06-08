@@ -52,4 +52,8 @@ void main_treatment(FILE *geoFile, FILE *qryFile, FILE *geoSVG, FILE *qrySVG, FI
 	/*---Making the svg and txt qry--*/
 	if(qryFile)
 		main_qry(rect_tree, circle_tree, qryFile, qryTXT, qrySVG);
+	else{
+		delete_tree(rect_tree);
+		delete_tree(circle_tree);
+	}
 }
