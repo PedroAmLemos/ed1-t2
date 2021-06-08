@@ -59,7 +59,7 @@ void main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile, 
 			rect_tree = remove_dpi_points(dpi_remove_points, rect_tree);
 		}
 		else if((strcmp(aux, "dr"))==0){
-			fprintf(txtFile, "dpi\n");
+			fprintf(txtFile, "dr\n");
 			fscanf(qryFile, "%s", id);
 		}
 	}
