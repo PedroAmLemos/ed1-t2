@@ -65,6 +65,14 @@ void change_rect_point(_Rect rectangle, float new_x, float new_y) {
 	change_rect_y(rectangle, new_y);
 }
 
+void swap_two_rect(_Rect rectangle1, _Rect rectangle2){
+	structRect *rect1 = (structRect *)rectangle1;
+	structRect *rect2 = (structRect *)rectangle2;
+	structRect aux = *rect1;
+	*rect1 = *rect2;
+	*rect2 = aux;
+}
+
 void print_rect(FILE *svgFile, _Rect rectangle){
 	structRect *rect = (structRect *)rectangle;
     fprintf(svgFile,"\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" fill=\"%s\" opacity=\"0.5\" stroke=\"%s\"/>\n",get_rect_x(rect),get_rect_y(rect), rect->w, rect->h, rect->cc, rect->cp);

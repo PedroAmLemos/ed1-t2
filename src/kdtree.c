@@ -123,7 +123,8 @@ void copy_point(float point1[2], float point2[2]){
 		point1[i] = point2[i];
 	}
 }
-_Tree delete_node(_Tree tree, float *point, int depth){
+
+_Tree delete_node(_Tree tree, float *point, int depth, void (*swap)(_Info, _Info)){
 	Tree* root = (Tree*) tree;
 	if(root == NULL){
 		return root;
@@ -135,13 +136,15 @@ _Tree delete_node(_Tree tree, float *point, int depth){
 		if(root->right != NULL){
 			Tree *min = find_min_init(root->right, cd);
 			copy_point(root->point, min->point);
-			root->right = delete_node(root->right, min->point, depth+1);
+			swap(root->info, min->info);
+			root->right = delete_node(root->right, min->point, depth+1, swap);
 		}
 
 		else if(root->left != NULL){
 			Tree *min = find_min_init(root->left, cd);
 			copy_point(root->point, min->point);
-			root->left = delete_node(root->left, min->point, depth+1);
+			swap(root->info, min->info);
+			root->right = delete_node(root->left, min->point, depth+1, swap);
 		}
 
 		else{
@@ -151,20 +154,21 @@ _Tree delete_node(_Tree tree, float *point, int depth){
 			free(root);
 			return NULL;
 		}
+		return root;
 	}
 
 	if(point[cd] < root->point[cd]){
-		root->left = delete_node(root->left, point, depth+1);
+		root->left = delete_node(root->left, point, depth+1, swap);
 	}
 	else{
-		root->right = delete_node(root->right, point, depth+1);
+		root->right = delete_node(root->right, point, depth+1, swap);
 	}
 	
 	return root;
 }
 
-_Tree delete_node_init(_Tree tree, float *point){
-	return delete_node(tree, point, 0);
+_Tree delete_node_init(_Tree tree, float *point, void (*swap)(_Info, _Info)){
+	return delete_node(tree, point, 0, swap);
 }
 
 void delete_tree(_Tree tree){

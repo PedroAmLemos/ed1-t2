@@ -23,6 +23,8 @@ void change_rect_y(_Rect rectangle, float new_y);
 
 void change_rect_point(_Rect rectangle, float new_x, float new_y);
 
+void swap_two_rect(_Rect rectangle1, _Rect rectangle2);
+
 void print_rect(FILE *svgFile, _Rect rectangle);
 
 #endif /* ifndef __RECT__ */

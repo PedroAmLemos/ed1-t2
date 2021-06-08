@@ -37,7 +37,7 @@ void remove_dpi_points(_List dpi_remove, _Tree rect_tree){
 	float *point;
 	for(_Node node = get_first(dpi_remove); node!=NULL; node=get_next(node)){
 		point = get_list_info(node);
-		/*rect_tree = delete_node_init(rect_tree, get_list_info(node));*/
+		rect_tree = delete_node_init(rect_tree, get_list_info(node), swap_two_rect);
 	}
 }
 

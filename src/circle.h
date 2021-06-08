@@ -19,6 +19,8 @@ void change_circle_y(_Circle circle, float new_y);
 
 void change_circle_point(_Circle circle, float new_x, float new_y);
 
+void swap_two_circle(_Circle circle1, _Circle circle2);
+
 void print_circle(FILE *svgFile, _Circle circle);
 
 #endif /* ifndef __CIRCLE__ */

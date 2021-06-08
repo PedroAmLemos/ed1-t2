@@ -72,6 +72,14 @@ void change_circle_point(_Circle circle, float new_x, float new_y){
 	change_circle_y(circle, new_y);
 }
 
+void swap_two_circle(_Circle circle1, _Circle circle2){
+	structCircle *circ1 = (structCircle *)circle1;
+	structCircle *circ2 = (structCircle *)circle2;
+	structCircle aux = *circ1;
+	*circ1 = *circ2;
+	*circ2 = aux;
+}
+
 void print_circle(FILE *svgFile, _Rect circle){
 	structCircle *circ = (structCircle *) circle;
 	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" stroke=\"%s\"/>\n", get_circle_x(circ), get_circle_y(circ), circ->r, circ->pc, circ->bc);
