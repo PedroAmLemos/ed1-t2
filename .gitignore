@@ -2,6 +2,7 @@ src/*.o
 src/progr
 testes-t2/
 t2/
+t2-png/
 output
 
 testes.py
