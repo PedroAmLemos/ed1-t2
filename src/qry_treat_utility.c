@@ -54,9 +54,8 @@ _Tree dr(_Tree rect_tree, float *dr_point, _List dr_remove, int depth, FILE *txt
 	}
 	int cd = depth%2;
 	_Rect rectangle = get_info(rect_tree);
-	if(dr_point[cd] < get_rect_point(rectangle)[cd]){
+	if(dr_point[cd] < get_rect_point(rectangle)[cd])
 		dr(get_kd_left(rect_tree), dr_point, dr_remove, depth+1, txt_file);
-	}
 	dr(get_kd_right(rect_tree), dr_point, dr_remove, depth+1, txt_file);
 	float intRectX = get_rect_x(rectangle), intRectY = get_rect_y(rectangle), intRectW = get_rect_w(rectangle), intRectH = get_rect_h(rectangle);
 	int same = are_same(dr_point[0], intRectX, dr_point[1], intRectY, dr_point[2], intRectW, dr_point[3], intRectH);
@@ -76,4 +75,24 @@ _Tree dr_init(_Tree rect_tree, float *dr_point, _List dr_remove, FILE *txt_file)
 		return rect_tree;
 	}
 	return dr(rect_tree, dr_point, dr_remove, 0, txt_file);
+}
+
+_Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, int depth){
+	if(is_null(circle_tree)){
+		return NULL;
+	}
+	int cd = depth%2;
+	_Circle circle = get_info(circle_tree);
+	if(point[cd] < get_circle_point(circle)[cd])
+		fg(rect_tree, get_kd_right(circle_tree), point, r, txtFile, svgFile, to_move, depth+1);
+	fg(rect_tree, get_kd_left(circle_tree), point, r, txtFile, svgFile, to_move, depth+1);
+	float *circlePoint = get_circle_point(circle), circleRad = get_circle_r(circle);
+	if(circle_is_inside(point[0], point[1], r, circlePoint[0], circlePoint[1], circleRad)==1){
+		printf("%s\n", get_circle_id(circle));
+	}
+	return circle_tree;
+}
+
+_Tree fg_init(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move){
+	return fg(rect_tree, circle_tree, point, r, txtFile, svgFile, to_move, 0);
 }

@@ -43,12 +43,11 @@ _Tree dr_wrapper(_Tree rect_tree, char *id_to_search, FILE *txt_file){
 	return rect_tree;
 }
 
-_List fg_wrapper(_Tree rect_tree, _Tree circle_tree, float x, float y, float r, FILE *txtFile, FILE *svgFile){
+_Tree fg_wrapper(_Tree rect_tree, _Tree circle_tree, float x, float y, float r, FILE *txtFile, FILE *svgFile){
 	_List to_move = create_list();
-
-
-
-	
+	float point[2] = {x, y};
+	circle_tree = fg_init(rect_tree, circle_tree, point, r, txtFile, svgFile, to_move);
+	delete_list(to_move, 0);
 	return circle_tree;
 }
 
@@ -71,9 +70,8 @@ void main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile, 
 		}
 		else if((strcmp(aux, "fg"))==0){
 			fprintf(txtFile, "fg\n");
-			fscanf(txtFile, "%f %f %f", &x, &y, &r);
-			_Tree copy_rect_tree = rect_tree;
-			circle_tree = fg_wrapper(copy_rect_tree, circle_tree, x, y, r, txtFile, svgFile);
+			fscanf(qryFile, "%f %f %f", &x, &y, &r);
+			circle_tree = fg_wrapper(rect_tree, circle_tree, x, y, r, txtFile, svgFile);
 		}
 	}
 	fill_svg(rect_tree, circle_tree, svgFile);

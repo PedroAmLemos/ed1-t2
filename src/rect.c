@@ -6,6 +6,7 @@
 typedef struct rect{
 	char id[40], cc[40], cp[40];
 	float point[2], w, h;
+	int n;
 }structRect;
 
 _Rect create_rect(char id[40], char cc[40], char cp[40], float x, float y, float w, float h){
@@ -17,6 +18,7 @@ _Rect create_rect(char id[40], char cc[40], char cp[40], float x, float y, float
 	new_rect->point[1] = y;
 	new_rect->w = w;
 	new_rect->h = h;
+	new_rect->n = 0;
 	return new_rect;
 }
 
@@ -50,6 +52,11 @@ float *get_rect_point(_Rect rectangle) {
 	return rect->point;
 }
 
+void add_n(_Rect rectangle){
+	structRect *rect = (structRect *)rectangle;
+	rect->n +=1;
+}
+
 void change_rect_x(_Rect rectangle, float new_x) {
 	structRect *rect = (structRect *)rectangle;
 	rect->point[0] = new_x;
@@ -59,6 +66,7 @@ void change_rect_y(_Rect rectangle, float new_y) {
 	structRect *rect = (structRect *)rectangle;
 	rect->point[1] = new_y;
 }
+
 
 void change_rect_point(_Rect rectangle, float new_x, float new_y) {
 	change_rect_x(rectangle, new_x);

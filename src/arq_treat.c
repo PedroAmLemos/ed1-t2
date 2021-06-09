@@ -3,7 +3,6 @@
 #include <string.h>
 #include "arq_treat.h"
 #include "kdtree.h"
-#include "bstree.h"
 #include "qry_treat.h"
 #include "svg.h"
 #include "circle.h"

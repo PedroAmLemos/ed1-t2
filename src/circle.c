@@ -38,6 +38,11 @@ float get_circle_y(_Circle circle){
 	return circ->point[1];
 }
 
+float get_circle_r(_Circle circle){
+	structCircle *circ = circle;
+	return circ->r;
+}
+
 float *get_circle_point(_Circle circle){
 	structCircle *circ = circle;
 	return circ->point;

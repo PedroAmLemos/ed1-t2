@@ -17,6 +17,8 @@ float get_rect_y(_Rect rectangle);
 
 float *get_rect_point(_Rect rectangle);
 
+void add_n(_Rect rectangle);
+
 void change_rect_x(_Rect rectangle, float new_x);
 
 void change_rect_y(_Rect rectangle, float new_y);
