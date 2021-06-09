@@ -90,5 +90,5 @@ void swap_two_circle(_Circle circle1, _Circle circle2){
 void print_circle(FILE *svgFile, _Rect circle){
 	structCircle *circ = (structCircle *) circle;
 	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" stroke=\"%s\"/>\n", get_circle_x(circ), get_circle_y(circ), circ->r, circ->pc, circ->bc);
-	fprintf(svgFile,"\t<text text-anchor=\"middle\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">%s</text>", get_circle_x(circ), get_circle_y(circ), get_circle_id(circ));
+	fprintf(svgFile,"\t<text text-anchor=\"middle\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">%s</text>\n", get_circle_x(circ), get_circle_y(circ), get_circle_id(circ));
 }
