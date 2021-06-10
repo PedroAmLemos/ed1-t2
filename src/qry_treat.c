@@ -45,13 +45,15 @@ _Tree dr_wrapper(_Tree rect_tree, char *id_to_search, FILE *txt_file){
 
 _Tree fg_wrapper(_Tree rect_tree, _Tree circle_tree, float x, float y, float r, FILE *txtFile, FILE *svgFile){
 	_List to_move = create_list();
+	_Tree copyTree = rect_tree;
 	float point[2] = {x, y};
-	circle_tree = fg_init(rect_tree, circle_tree, point, r, txtFile, svgFile, to_move);
-	delete_list(to_move, 0);
+	circle_tree = fg_init(copyTree, circle_tree, point, r, txtFile, svgFile, to_move);
+	delete_list(to_move, 1);
 	return circle_tree;
 }
 
 void main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile, FILE *svgFile){
+	open_SVG(svgFile);
 	float x=0, y=0, r=0;
 	char id[40], aux[40];
 	_List dpi_remove_points = create_list();

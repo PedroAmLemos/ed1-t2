@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 #include "kdtree.h"
 #include "rect.h"
 #include "circle.h"
@@ -12,6 +13,10 @@ typedef struct Node{
 	struct Node *left;
 	struct Node *right;
 } Tree;
+
+float calc_distance(float x1, float y1, float x2, float y2){
+    return sqrt(pow(x1 - x2,2) + pow(y1 - y2,2));
+}
 
 _Tree create_kdnode(float point[2], _Info info) {
 	Tree *tree = (Tree *)malloc(sizeof(Tree));
@@ -207,4 +212,28 @@ bool is_null(_Tree tree){
 		return true;
 	}
 	return false;
+}
+
+_Tree find_nearest_neighbor(_Tree tree, float *point, int depth, double distance, _Rect *result, int flag){
+	if(tree==NULL){
+		return NULL;
+	}
+	Tree *root = tree;
+	int cd = depth%2;
+	double cDistance = calc_distance(root->point[0], root->point[1], point[0], point[1]);
+	if(flag==0){
+		distance = cDistance;
+	}
+	if(cDistance<distance){
+		*result = get_info(root);
+		distance = cDistance;
+	}
+	if(point[cd] < root->point[cd])
+		find_nearest_neighbor(root->left, point, depth, distance, result, 1);
+	find_nearest_neighbor(root->right, point, depth, distance, result, 1);
+	return root;
+}
+
+_Tree find_nearest_neighbor_init(_Tree tree, float *point, _Rect *result){
+	return find_nearest_neighbor(tree, point, 0, 0, result, 0);
 }

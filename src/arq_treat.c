@@ -45,6 +45,7 @@ void main_treatment(FILE *geoFile, FILE *qryFile, FILE *geoSVG, FILE *qrySVG, FI
 		}
 	}
 	/*---Making the geo svg---*/
+	open_SVG(geoSVG);
 	fill_svg(rect_tree, circle_tree, geoSVG);
 
 	/*---Making the qry svg and qry txt--*/

@@ -4,22 +4,23 @@
 #include "circle.h"
 #include "rect.h"
 typedef struct circle{
-	char id[40], bc[40], pc[40], estado[40];
-	float point[2], r;
-	int radiation;
+	char id[40], bc[40], pc[40];
+	float point[2], r, destiny[2];
+	int radiation, state;
 }structCircle;
 
 _Circle create_circle(char id[40], char bc[40], char pc[40], float x, float y, float r){
 	structCircle *new_circle = malloc(sizeof(structCircle));
-	char estado[] = {"viva"};
 	strcpy(new_circle->id, id);
 	strcpy(new_circle->bc, bc);
 	strcpy(new_circle->pc, pc);
-	strcpy(new_circle->estado, estado);
+	new_circle->state = 0;
+	new_circle->radiation = 0;
 	new_circle->point[0] = x;
 	new_circle->point[1] = y;
+	new_circle->destiny[0] = x;
+	new_circle->destiny[1] = y;
 	new_circle->r = r;
-	new_circle->radiation = 0;
 	return new_circle;
 }
 
@@ -48,10 +49,30 @@ float *get_circle_point(_Circle circle){
 	return circ->point;
 }
 
+char *get_circle_bc(_Circle circle){
+	structCircle *circ = circle;
+	return circ->bc;
+}
+
+char *get_circle_pc(_Circle circle){
+	structCircle *circ = circle;
+	return circ->pc;
+}
+
 int get_radiation(_Circle circle){
 	structCircle *circ = circle;
 	return circ->radiation;
 
+}
+
+void change_circle_bc(_Circle circle, char *new_bc){
+	structCircle *circ = circle;
+	strcpy(circ->bc, new_bc);
+}
+
+void change_circle_pc(_Circle circle, char *new_pc){
+	structCircle *circ = circle;
+	strcpy(circ->pc, new_pc);
 }
 
 void change_radiation(_Circle circle, int new_rad){
@@ -89,6 +110,6 @@ void swap_two_circle(_Circle circle1, _Circle circle2){
 
 void print_circle(FILE *svgFile, _Rect circle){
 	structCircle *circ = (structCircle *) circle;
-	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" stroke=\"%s\"/>\n", get_circle_x(circ), get_circle_y(circ), circ->r, circ->pc, circ->bc);
+	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" stroke=\"%s\" stroke-width=\"0.2\"/>\n", get_circle_x(circ), get_circle_y(circ), circ->r, circ->pc, circ->bc);
 	fprintf(svgFile,"\t<text text-anchor=\"middle\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">%s</text>\n", get_circle_x(circ), get_circle_y(circ), get_circle_id(circ));
 }

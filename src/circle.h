@@ -17,7 +17,15 @@ float *get_circle_point(_Circle circle);
 
 int get_radiation(_Circle circle);
 
+char *get_circle_bc(_Circle circle);
+
+char *get_circle_pc(_Circle circle);
+
 void change_circle_x(_Circle circle, float new_x);
+
+void change_circle_bc(_Circle circle, char *new_bc);
+
+void change_circle_pc(_Circle circle, char *new_pc);
 
 void change_circle_y(_Circle circle, float new_y);
 
