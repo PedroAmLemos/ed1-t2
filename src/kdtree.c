@@ -6,7 +6,6 @@
 #include "kdtree.h"
 #include "rect.h"
 #include "circle.h"
-
 typedef struct Node{
 	_Info info;
 	float point[2];

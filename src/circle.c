@@ -5,7 +5,7 @@
 #include "rect.h"
 typedef struct circle{
 	char id[40], bc[40], pc[40];
-	float point[2], r, destiny[2];
+	float point[2], r, origin[2];
 	int radiation, state;
 }structCircle;
 
@@ -18,8 +18,8 @@ _Circle create_circle(char id[40], char bc[40], char pc[40], float x, float y, f
 	new_circle->radiation = 0;
 	new_circle->point[0] = x;
 	new_circle->point[1] = y;
-	new_circle->destiny[0] = x;
-	new_circle->destiny[1] = y;
+	new_circle->origin[0] = x;
+	new_circle->origin[1] = y;
 	new_circle->r = r;
 	return new_circle;
 }
@@ -100,6 +100,17 @@ void change_circle_point(_Circle circle, float new_x, float new_y){
 	change_circle_y(circle, new_y);
 }
 
+void change_circle_origin(_Circle circle, float *new_origin){
+	structCircle *circ = circle;
+	circ->origin[0] = new_origin[0];
+	circ->origin[1] = new_origin[1];
+}
+
+void change_circle_state(_Circle circle, int new_state){
+	structCircle *circ = circle;
+	circ->state = new_state;
+}
+
 void swap_two_circle(_Circle circle1, _Circle circle2){
 	structCircle *circ1 = (structCircle *)circle1;
 	structCircle *circ2 = (structCircle *)circle2;
@@ -107,6 +118,7 @@ void swap_two_circle(_Circle circle1, _Circle circle2){
 	*circ1 = *circ2;
 	*circ2 = aux;
 }
+
 
 void print_circle(FILE *svgFile, _Rect circle){
 	structCircle *circ = (structCircle *) circle;
