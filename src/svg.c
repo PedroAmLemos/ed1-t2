@@ -6,7 +6,7 @@
 #include "svg.h"
 
 void open_SVG(FILE *svgFile){
-	// fprintf(svgFile, "<!-- Pedro Antonio Messias Lemos -->\n<svg>\n");
+	fprintf(svgFile, "<!-- Pedro Antonio Messias Lemos -->\n");
 	fprintf(svgFile, "<svg version=\"1.1\" baseProfile=\"full\" width=\"10000\" height=\"10000\" xmlns=\"http://www.w3.org/2000/svg\">\n");
 }
 
@@ -16,7 +16,17 @@ void print_circle_to_svg(FILE *svgFile, _Tree tree){
 	}
 	print_circle_to_svg(svgFile, get_kd_right(tree));
 	print_circle_to_svg(svgFile, get_kd_left(tree));
-	print_circle(svgFile, get_info(tree));
+	_Circle circle = get_info(tree);
+	int state = get_circle_state(circle);
+	switch (state)
+	{
+	case 0:
+		print_circle(svgFile, get_info(tree));
+		break;
+	case 1:
+		// printf_circle_animated(svgFile, get_info(tree));
+		break;
+	}
 }
 
 void print_rect_to_svg(FILE *svgFile, _Tree tree){

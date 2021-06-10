@@ -86,23 +86,39 @@ _Tree dr_init(_Tree rect_tree, float *dr_point, _List dr_remove, FILE *txt_file)
 	return dr(rect_tree, dr_point, dr_remove, 0, txt_file);
 }
 
-_Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove, int depth){
-
+_Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove, _List carlos, int depth){
+	// lista para o print --> lprint
 	if(is_null(circle_tree)){
 		return NULL;
 	}
 
 	int cd = depth%2;
 	_Circle circle = get_info(circle_tree);
+
 	if(point[cd] < get_circle_point(circle)[cd])
-		fg(rect_tree, get_kd_right(circle_tree), point, r, txtFile, svgFile, to_move, to_remove, depth+1);
-	fg(rect_tree, get_kd_left(circle_tree), point, r, txtFile, svgFile, to_move, to_remove, depth+1);
+		fg(rect_tree, get_kd_right(circle_tree), point, r, txtFile, svgFile, to_move, to_remove, carlos, depth+1);
+	fg(rect_tree, get_kd_left(circle_tree), point, r, txtFile, svgFile, to_move, to_remove, carlos, depth+1);
+
 	_Circle copy_circle = NULL;
 	float *circlePoint = get_circle_point(circle), circleRad = get_circle_r(circle);
 
 	if(circle_is_inside(point[0], point[1], r, circlePoint[0], circlePoint[1], circleRad)==1){
 		_Rect near_rect = NULL;
 		rect_tree = find_nearest_neighbor_init(rect_tree, circlePoint, &near_rect);
+		_List aux = NULL; 
+		for(_Node node = get_first(carlos); node!=NULL; node=get_next(node)){
+			if(strcmp(get_rect_id(near_rect), get_list_info(get_first(get_list_info(node))))==0){
+				aux = get_list_info(node);
+				break;
+			}
+		}
+		if(aux == NULL){
+			aux = create_list();
+			insert_list(get_rect_id(near_rect), aux);
+			insert_list(aux, carlos);
+		}
+		insert_list(get_circle_id(circle), aux);
+		add_n(rect_tree);
 		float destinyX = get_rect_x(near_rect)+(get_rect_w(near_rect))/2;
 		float destinyY = get_rect_y(near_rect)+(get_rect_h(near_rect))/2;
 		char copyId[40], copyBc[40], copyPc[40];
@@ -110,6 +126,7 @@ _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtF
 		strcpy(copyBc, get_circle_bc(circle));
 		strcpy(copyPc, get_circle_pc(circle));
 		copy_circle = create_circle(copyId, copyBc, copyBc, destinyX, destinyY, get_circle_r(circle));
+		change_circle_state(copy_circle, 1);
 		insert_list(copy_circle, to_move);
 		insert_list(circlePoint, to_remove);
 		change_circle_bc(circle, "gray");
@@ -121,6 +138,6 @@ _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtF
 }
 
 
-_Tree fg_init(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove){
-	return fg(rect_tree, circle_tree, point, r, txtFile, svgFile, to_move, to_remove, 0);
+_Tree fg_init(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove, _List carlos){
+	return fg(rect_tree, circle_tree, point, r, txtFile, svgFile, to_move, to_remove, carlos, 0);
 }

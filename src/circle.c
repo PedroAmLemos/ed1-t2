@@ -65,6 +65,10 @@ int get_radiation(_Circle circle){
 
 }
 
+int get_circle_state(_Circle circle){
+	structCircle *circ = circle;
+	return circ->state;
+}
 void change_circle_bc(_Circle circle, char *new_bc){
 	structCircle *circ = circle;
 	strcpy(circ->bc, new_bc);
@@ -107,6 +111,7 @@ void change_circle_origin(_Circle circle, float *new_origin){
 }
 
 void change_circle_state(_Circle circle, int new_state){
+	// states ----> 0 == static normal :::::: 1 == moved :::::: 2 == eminent death :::::: 3 == dead
 	structCircle *circ = circle;
 	circ->state = new_state;
 }
@@ -124,4 +129,8 @@ void print_circle(FILE *svgFile, _Rect circle){
 	structCircle *circ = (structCircle *) circle;
 	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" stroke=\"%s\" stroke-width=\"0.2\"/>\n", get_circle_x(circ), get_circle_y(circ), circ->r, circ->pc, circ->bc);
 	fprintf(svgFile,"\t<text text-anchor=\"middle\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">%s</text>\n", get_circle_x(circ), get_circle_y(circ), get_circle_id(circ));
+}
+
+void print_circle_animated(FILE *svgFile, _Rect circle){
+
 }
