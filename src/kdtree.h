@@ -23,5 +23,6 @@ _Tree delete_node_init(_Tree tree, float *point, void (*swap)(_Info, _Info));
 void delete_tree(_Tree tree);
 bool is_null(_Tree tree);
 _Tree find_nearest_neighbor_init(_Tree tree, float *point, _Rect *result);
+_Tree print_all_rect(_Tree tree);
 
 #endif /* ifndef __KDTREE__ */

@@ -236,3 +236,13 @@ _Tree find_nearest_neighbor(_Tree tree, float *point, int depth, double distance
 _Tree find_nearest_neighbor_init(_Tree tree, float *point, _Rect *result){
 	return find_nearest_neighbor(tree, point, 0, 0, result, 0);
 }
+
+_Tree print_all_rect(_Tree tree){
+	Tree *root = tree;
+	if(root==NULL)
+		return NULL;
+	print_all_rect(root->right);
+	print_all_rect(root->left);
+	printf("%s\n", get_rect_cc(get_info(root)));
+	return root;
+}

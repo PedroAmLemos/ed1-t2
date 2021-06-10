@@ -116,7 +116,11 @@ _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtF
 			aux = create_list();
 			insert_list(get_rect_id(near_rect), aux);
 			insert_list(aux, carlos);
+			// printf("%s %s\n", get_rect_id(near_rect), (char*)get_list_info(aux));
+			// print_all_rect(rect_tree);
 		}
+		// print_all_rect(rect_tree);
+
 		insert_list(get_circle_id(circle), aux);
 		add_n(rect_tree);
 		float destinyX = get_rect_x(near_rect)+(get_rect_w(near_rect))/2;

@@ -29,4 +29,6 @@ void swap_two_rect(_Rect rectangle1, _Rect rectangle2);
 
 void print_rect(FILE *svgFile, _Rect rectangle);
 
+char *get_rect_cc(_Rect rectangle);
+
 #endif /* ifndef __RECT__ */
