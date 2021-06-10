@@ -24,7 +24,8 @@ void print_circle_to_svg(FILE *svgFile, _Tree tree){
 		print_circle(svgFile, get_info(tree));
 		break;
 	case 1:
-		// printf_circle_animated(svgFile, get_info(tree));
+		print_circle_animated(svgFile, get_info(tree));
+		/*print_circle(svgFile, get_info(tree));*/
 		break;
 	}
 }

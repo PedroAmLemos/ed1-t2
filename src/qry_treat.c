@@ -45,7 +45,6 @@ _Tree dr_wrapper(_Tree rect_tree, char *id_to_search, FILE *txt_file){
 
 _Tree fg_wrapper(_Tree rect_tree, _Tree circle_tree, float x, float y, float r, FILE *txtFile, FILE *svgFile){
 	_List to_move  = create_list(), to_remove = create_list(), carlos = create_list();
-	// print_all_rect(rect_tree);
 	float point[2] = {x, y};
 	circle_tree    = fg_init(rect_tree, circle_tree, point, r, txtFile, svgFile, to_move, to_remove, carlos);
 	for(_Node node = get_first(carlos); node != NULL; node = get_next(node)){

@@ -4,7 +4,7 @@
 #ifndef __KDTREE__
 #define __KDTREE__ 
 
-float calc_distance(float x1, float y1, float x2, float y2);
+double calc_distance(float x1, float y1, float x2, float y2);
 _Tree create_kdnode(float point[2], _Info info);
 _Tree insert_kd(_Tree tree, float point[2], _Info info, int depth);
 _Tree insert_kd_init(_Tree tree, float point[2], _Info info);
@@ -22,7 +22,9 @@ void copy_point(float point1[2], float point[2]);
 _Tree delete_node_init(_Tree tree, float *point, void (*swap)(_Info, _Info));
 void delete_tree(_Tree tree);
 bool is_null(_Tree tree);
-_Tree find_nearest_neighbor_init(_Tree tree, float *point, _Rect *result);
+
+void find_nearest_neighbor_init(_Tree tree, float *point, _Rect *result);
+
 _Tree print_all_rect(_Tree tree);
 
 #endif /* ifndef __KDTREE__ */

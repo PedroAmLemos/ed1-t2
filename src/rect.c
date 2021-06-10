@@ -81,11 +81,23 @@ void swap_two_rect(_Rect rectangle1, _Rect rectangle2){
 	*rect2 = aux;
 }
 
+int get_rect_n(_Rect rectangle){
+	structRect *rect = (structRect *)rectangle;
+	return rect->n;
+}
+
 void print_rect(FILE *svgFile, _Rect rectangle){
 	structRect *rect = (structRect *)rectangle;
-	printf("%s %s\n", (char*)get_rect_id(rect), (char*)get_rect_cc(rect));
-	fprintf(svgFile,"\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" fill=\"%s\" opacity=\"0.5\" stroke=\"%s\"/>\n",get_rect_x(rect),get_rect_y(rect), rect->w, rect->h, rect->cc, rect->cp);
-	fprintf(svgFile,"\t<text text-anchor=\"start\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">%s</text>\n", get_rect_x(rect), get_rect_y(rect), get_rect_id(rect));
+	int n = get_rect_n(rect);
+	if(n==0){
+		fprintf(svgFile,"\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" fill=\"%s\" opacity=\"0.5\" stroke=\"%s\"/>\n",get_rect_x(rect),get_rect_y(rect), rect->w, rect->h, rect->cc, rect->cp);
+		fprintf(svgFile,"\t<text text-anchor=\"start\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">%s</text>\n", get_rect_x(rect), get_rect_y(rect), get_rect_id(rectangle));
+	}else{
+		fprintf(svgFile,"\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" fill=\"%s\" opacity=\"0.5\" stroke=\"%s\"/>\n",get_rect_x(rect),get_rect_y(rect), rect->w, rect->h, rect->cc, rect->cp);
+		fprintf(svgFile,"\t<text text-anchor=\"start\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">n abrigados :: %d</text>\n", get_rect_x(rect), get_rect_y(rect), n);
+		fprintf(svgFile,"\t<text text-anchor=\"start\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">%s</text>\n", get_rect_x(rect), get_rect_y(rect), get_rect_id(rectangle));
+
+	}
 }
 
 char *get_rect_cc(_Rect rectangle){

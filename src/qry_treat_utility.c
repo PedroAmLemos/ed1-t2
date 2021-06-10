@@ -104,33 +104,33 @@ _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtF
 
 	if(circle_is_inside(point[0], point[1], r, circlePoint[0], circlePoint[1], circleRad)==1){
 		_Rect near_rect = NULL;
-		rect_tree = find_nearest_neighbor_init(rect_tree, circlePoint, &near_rect);
 		_List aux = NULL; 
+
+		find_nearest_neighbor_init(rect_tree, circlePoint, &near_rect);
+
 		for(_Node node = get_first(carlos); node!=NULL; node=get_next(node)){
 			if(strcmp(get_rect_id(near_rect), get_list_info(get_first(get_list_info(node))))==0){
 				aux = get_list_info(node);
 				break;
 			}
 		}
+
 		if(aux == NULL){
 			aux = create_list();
 			insert_list(get_rect_id(near_rect), aux);
 			insert_list(aux, carlos);
-			// printf("%s %s\n", get_rect_id(near_rect), (char*)get_list_info(aux));
-			// print_all_rect(rect_tree);
 		}
-		// print_all_rect(rect_tree);
-
+		add_n(near_rect);
 		insert_list(get_circle_id(circle), aux);
-		add_n(rect_tree);
 		float destinyX = get_rect_x(near_rect)+(get_rect_w(near_rect))/2;
 		float destinyY = get_rect_y(near_rect)+(get_rect_h(near_rect))/2;
 		char copyId[40], copyBc[40], copyPc[40];
 		strcpy(copyId, get_rect_id(circle)); 
 		strcpy(copyBc, get_circle_bc(circle));
 		strcpy(copyPc, get_circle_pc(circle));
-		copy_circle = create_circle(copyId, copyBc, copyBc, destinyX, destinyY, get_circle_r(circle));
+		copy_circle = create_circle(copyId, copyBc, copyPc, destinyX, destinyY, get_circle_r(circle));
 		change_circle_state(copy_circle, 1);
+		change_circle_origin(copy_circle, get_circle_point(circle));
 		insert_list(copy_circle, to_move);
 		insert_list(circlePoint, to_remove);
 		change_circle_bc(circle, "gray");
