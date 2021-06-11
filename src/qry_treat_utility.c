@@ -40,11 +40,12 @@ float smaller(float a, float b){
     }
 } 
 
-_Tree remove_points_list(_List remove_points_list, _Tree tree){
+_Tree remove_points_list(_List remove_points_list, _Tree tree, void(*swap)(void*, void*)){
 	float *point;
 	for(_Node node = get_first(remove_points_list); node!=NULL; node=get_next(node)){
 		point = get_list_info(node);
-		tree = delete_node_init(tree, point, swap_two_rect);
+		tree = delete_node_init(tree, point, swap);
+
 	}
 	return tree;
 }
@@ -146,7 +147,17 @@ _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtF
 		}else{
 			free(copy_circle);
 		}
-		insert_list(circlePoint, to_remove);
+		bool flag2 = true;
+		for(_Node node = get_first(to_remove); node != NULL; node = get_next(node)){
+			test = get_list_info(node);
+			if(get_list_info(node)==get_circle_point(circle)){
+				flag = false;
+				break;
+			}
+		}
+		if(flag2){
+			insert_list(get_circle_point(circle), to_remove);
+		}
 		return circle_tree;
 	}
 	return circle_tree;
