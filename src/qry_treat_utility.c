@@ -143,6 +143,8 @@ _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtF
 		if(flag){
 			insert_list(copy_circle, to_move);
 			add_n(near_rect);
+		}else{
+			free(copy_circle);
 		}
 		insert_list(circlePoint, to_remove);
 		return circle_tree;

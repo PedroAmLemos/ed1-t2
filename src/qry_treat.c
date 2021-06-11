@@ -88,8 +88,8 @@ void main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile, 
 		}
 	}
 	circle_tree = insert_points_list(to_move, circle_tree);
-	delete_list(to_move, 0);
 	fill_svg(rect_tree, circle_tree, svgFile);
+	delete_list(to_move, 0);
 	delete_list(dpi_remove_points, 1);
 	delete_tree(rect_tree);
 	delete_tree(circle_tree);
