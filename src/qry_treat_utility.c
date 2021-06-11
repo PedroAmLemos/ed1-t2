@@ -121,7 +121,6 @@ _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtF
 			insert_list(get_rect_id(near_rect), aux);
 			insert_list(aux, carlos);
 		}
-		add_n(near_rect);
 		insert_list(get_circle_id(circle), aux);
 		float destinyX = get_rect_x(near_rect)+(get_rect_w(near_rect))/2;
 		float destinyY = get_rect_y(near_rect)+(get_rect_h(near_rect))/2;
@@ -132,7 +131,19 @@ _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtF
 		copy_circle = create_circle(copyId, copyBc, copyPc, destinyX, destinyY, get_circle_r(circle));
 		change_circle_state(copy_circle, 1);
 		change_circle_origin(copy_circle, get_circle_point(circle));
-		insert_list(copy_circle, to_move);
+		_Circle test = NULL;
+		bool flag = true;
+		for(_Node node = get_first(to_move); node != NULL; node = get_next(node)){
+			test = get_list_info(node);
+			if(strcmp(get_circle_id(test), copyId)==0){
+				flag = false;
+				break;
+			}
+		}
+		if(flag){
+			insert_list(copy_circle, to_move);
+			add_n(near_rect);
+		}
 		insert_list(circlePoint, to_remove);
 		return circle_tree;
 	}
