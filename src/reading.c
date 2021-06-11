@@ -37,7 +37,7 @@ void read(char *entryPath, char *geo, char *qry, char *outPath){
 	}else{
 		if(qry != NULL){
 			qryPath = copy(qry);
-			qryName = copy_file_name(geo); 
+			qryName = copy_file_name(qry); 
 		}
 		geoPath = copy(geo);
 		geoName = copy_file_name(geo);
