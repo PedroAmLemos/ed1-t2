@@ -4,7 +4,7 @@
 #ifndef __KDTREE__
 #define __KDTREE__ 
 
-double calc_distance(float x1, float y1, float x2, float y2);
+float calc_distance(float x1, float y1, float x2, float y2);
 _Tree create_kdnode(float point[2], _Info info);
 _Tree insert_kd(_Tree tree, float point[2], _Info info, int depth);
 _Tree insert_kd_init(_Tree tree, float point[2], _Info info);

@@ -25,7 +25,6 @@ void print_circle_to_svg(FILE *svgFile, _Tree tree){
 		break;
 	case 1:
 		print_circle_animated(svgFile, get_info(tree));
-		/*print_circle(svgFile, get_info(tree));*/
 		break;
 	}
 }
@@ -44,7 +43,6 @@ void close_SVG(FILE *svgFile){
 }
 
 void fill_svg(_Tree rect_tree, _Tree circle_tree, FILE *svgFile){
-	/*open_SVG(svgFile);*/
 	print_circle_to_svg(svgFile, circle_tree);
 	print_rect_to_svg(svgFile, rect_tree);
 	close_SVG(svgFile);

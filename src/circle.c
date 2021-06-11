@@ -134,15 +134,19 @@ void swap_two_circle(_Circle circle1, _Circle circle2){
 
 void print_circle(FILE *svgFile, _Circle circle){
 	structCircle *circ = (structCircle *) circle;
-	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" opacity=\"0.5\" stroke=\"%s\" stroke-width=\"0.2\"/>\n", get_circle_x(circ), get_circle_y(circ), circ->r, circ->pc, circ->bc);
-	fprintf(svgFile,"\t<text text-anchor=\"middle\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">%s</text>\n", get_circle_x(circ), get_circle_y(circ), get_circle_id(circ));
+	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" opacity=\"0.7\" stroke=\"%s\" stroke-width=\"0.2\"/>\n", get_circle_x(circ), get_circle_y(circ), circ->r, circ->pc, circ->bc);
 }
 
 void print_circle_animated(FILE *svgFile, _Circle circle){
 	structCircle *circ = (structCircle *) circle;
 	float *circle_origin, *circle_point;
 	circle_origin = get_circle_origin(circle);
+	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"lightgray\" opacity=\"0.7\" stroke=\"gray\" stroke-width=\"0.2\"/>\n", circle_origin[0], circle_origin[1], circ->r);
 	circle_point = get_circle_point(circle);
-	double distance = calc_distance(circle_origin[0], circle_origin[1], circle_point[0], circle_point[1]);
-	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" opacity=\"0.5\" stroke=\"%s\" stroke-width=\"0.2\"/>\n", (get_circle_x(circ)+0.01*distance), (get_circle_y(circ)+0.01*distance), circ->r, circ->pc, circ->bc);
+	float distance = calc_distance(circle_origin[0], circle_origin[1], circle_point[0], circle_point[1]);
+	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" opacity=\"0.7\" stroke=\"%s\" stroke-width=\"0.2\">\n", (get_circle_x(circ)+0.01*distance), (get_circle_y(circ)+0.02*distance), circ->r, circ->pc, circ->bc);
+	fprintf(svgFile, "\t\t<animate attributeName=\"cx\" from=\"%lf\" to=\"%lf\" dur=\"2s\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n", circle_origin[0], get_circle_x(circ));
+    fprintf(svgFile, "\t\t<animate attributeName=\"cy\" from=\"%lf\" to=\"%lf\" dur=\"2s\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n", circle_origin[1], get_circle_y(circ));
+	fprintf(svgFile, "\t</circle>\n");
+	fprintf(svgFile, "\t<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" style=\"stroke:black;stroke-width:0.5;stroke-dasharray:0.5\"/>\n", get_circle_x(circle), get_circle_y(circle), circle_origin[0], circle_origin[1]);
 }

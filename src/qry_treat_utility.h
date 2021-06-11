@@ -23,7 +23,7 @@ _Tree dr(_Tree rect_tree, float *dr_point, _List dr_remove, int depth, FILE *txt
 
 _Tree dr_init(_Tree rect_tree, float *dr_point, _List dr_remove, FILE *txt_file);
 
-_Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove, _List carlos, int depth);
+_Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove, _List carlos);
 
 _Tree fg_init(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove, _List carlos);
 #endif /* ifndef __QRYUTIL__ */

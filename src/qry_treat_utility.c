@@ -16,6 +16,10 @@ int circle_is_inside(float xc1, float yc1, float r1, float xc2, float yc2, float
 	return r1>=distance+r2;
 }
 
+int point_is_inside_circle(float x1, float y1, float x2, float y2, float r){
+	return calc_distance(x1, y1, x2, y2)>=r;
+}
+
 int are_same(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4){
 	return x1 == y1 && x2 == y2 && x3 == y3 && x4 == y4;
 }
@@ -86,27 +90,24 @@ _Tree dr_init(_Tree rect_tree, float *dr_point, _List dr_remove, FILE *txt_file)
 	return dr(rect_tree, dr_point, dr_remove, 0, txt_file);
 }
 
-_Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove, _List carlos, int depth){
+_Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove, _List carlos){
 	// lista para o print --> lprint
 	if(is_null(circle_tree)){
 		return NULL;
 	}
+	fg(rect_tree, get_kd_right(circle_tree), point, r, txtFile, svgFile, to_move, to_remove, carlos);
+	fg(rect_tree, get_kd_left(circle_tree), point, r, txtFile, svgFile, to_move, to_remove, carlos);
 
-	int cd = depth%2;
 	_Circle circle = get_info(circle_tree);
-
-	if(point[cd] < get_circle_point(circle)[cd])
-		fg(rect_tree, get_kd_right(circle_tree), point, r, txtFile, svgFile, to_move, to_remove, carlos, depth+1);
-	fg(rect_tree, get_kd_left(circle_tree), point, r, txtFile, svgFile, to_move, to_remove, carlos, depth+1);
-
 	_Circle copy_circle = NULL;
-	float *circlePoint = get_circle_point(circle), circleRad = get_circle_r(circle);
-
-	if(circle_is_inside(point[0], point[1], r, circlePoint[0], circlePoint[1], circleRad)==1){
-		_Rect near_rect = NULL;
+	_Rect near_rect = NULL;
+	float *circlePoint = get_circle_point(circle);
+	find_nearest_neighbor_init(rect_tree, circlePoint, &near_rect);
+	float centerX = get_rect_x(near_rect) + get_rect_w(near_rect)/2;
+	float centerY = get_rect_y(near_rect) + get_rect_h(near_rect)/2;
+	float distance = calc_distance(centerX, centerY, circlePoint[0], circlePoint[1]);
+	if(point_is_inside_circle(point[0], point[1], circlePoint[0], circlePoint[1], r)==0&&distance!=0){
 		_List aux = NULL; 
-
-		find_nearest_neighbor_init(rect_tree, circlePoint, &near_rect);
 
 		for(_Node node = get_first(carlos); node!=NULL; node=get_next(node)){
 			if(strcmp(get_rect_id(near_rect), get_list_info(get_first(get_list_info(node))))==0){
@@ -133,9 +134,6 @@ _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtF
 		change_circle_origin(copy_circle, get_circle_point(circle));
 		insert_list(copy_circle, to_move);
 		insert_list(circlePoint, to_remove);
-		change_circle_bc(circle, "gray");
-		change_circle_pc(circle, "lightgray");
-		print_circle(svgFile, circle);
 		return circle_tree;
 	}
 	return circle_tree;
@@ -143,5 +141,5 @@ _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtF
 
 
 _Tree fg_init(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove, _List carlos){
-	return fg(rect_tree, circle_tree, point, r, txtFile, svgFile, to_move, to_remove, carlos, 0);
+	return fg(rect_tree, circle_tree, point, r, txtFile, svgFile, to_move, to_remove, carlos);
 }

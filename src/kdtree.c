@@ -13,7 +13,7 @@ typedef struct Node{
 	struct Node *right;
 } Tree;
 
-double calc_distance(float x1, float y1, float x2, float y2){
+float calc_distance(float x1, float y1, float x2, float y2){
     return sqrt(pow(x1 - x2,2) + pow(y1 - y2,2));
 }
 
@@ -213,15 +213,14 @@ bool is_null(_Tree tree){
 	return false;
 }
 
-double find_nearest_neighbor(_Tree tree, float *point, int depth, double distance, _Rect *result, int flag){
+float find_nearest_neighbor(_Tree tree, float *point,  float distance, _Rect *result, int flag){
 	if(tree==NULL){
 		return INFINITY;
 	}
-	int cd = depth%2;
 	Tree *root = tree;
 	float centerx = root->point[0] + get_rect_w(get_info(tree))/2;
 	float centery = root->point[1] + get_rect_h(get_info(tree))/2;
-	double cDistance = calc_distance(centerx, centery, point[0], point[1]);
+	float cDistance = calc_distance(centerx, centery, point[0], point[1]);
 	if(flag==0){
 		*result = get_info(root);
 		distance = cDistance;
@@ -230,13 +229,11 @@ double find_nearest_neighbor(_Tree tree, float *point, int depth, double distanc
 		*result = get_info(root);
 		distance = cDistance;
 	}
-	if(point[cd]<root->point[cd]){
-		cDistance = find_nearest_neighbor(root->left, point, depth+1, distance, result, 1);
-		if(cDistance<distance){
-			distance = cDistance;
-		}
+	cDistance = find_nearest_neighbor(root->left, point, distance, result, 1);
+	if(cDistance<distance){
+		distance = cDistance;
 	}
-	cDistance = find_nearest_neighbor(root->right, point, depth+1, distance, result, 1);
+	cDistance = find_nearest_neighbor(root->right, point, distance, result, 1);
 	if(cDistance<distance){
 		distance = cDistance;
 	}
@@ -244,7 +241,7 @@ double find_nearest_neighbor(_Tree tree, float *point, int depth, double distanc
 }
 
 void find_nearest_neighbor_init(_Tree tree, float *point, _Rect *result){
-	find_nearest_neighbor(tree, point, 0, 0, result, 0);
+	find_nearest_neighbor(tree, point, 0, result, 0);
 }
 
 _Tree print_all_rect(_Tree tree){
