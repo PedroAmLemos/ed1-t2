@@ -141,7 +141,7 @@ void print_circle_animated(FILE *svgFile, _Circle circle){
 	structCircle *circ = (structCircle *) circle;
 	float *circle_origin, *circle_point;
 	circle_origin = get_circle_origin(circle);
-	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"lightgray\" opacity=\"0.7\" stroke=\"gray\" stroke-width=\"0.2\"/>\n", circle_origin[0], circle_origin[1], circ->r);
+	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"lightgray\" opacity=\"1\" stroke=\"gray\" stroke-width=\"0.2\"/>\n", circle_origin[0], circle_origin[1], circ->r);
 	circle_point = get_circle_point(circle);
 	float distance = calc_distance(circle_origin[0], circle_origin[1], circle_point[0], circle_point[1]);
 	fprintf(svgFile,"\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" fill=\"%s\" opacity=\"0.7\" stroke=\"%s\" stroke-width=\"0.2\">\n", (get_circle_x(circ)+0.01*distance), (get_circle_y(circ)+0.02*distance), circ->r, circ->pc, circ->bc);
