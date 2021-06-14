@@ -32,6 +32,14 @@ _Tree dpi(_Tree rect_tree, float x, float y, FILE *txtFile, _List dpi_remove){
 	return rect_tree;
 }
 
+_Tree dpi_wrapper(_Tree rect_tree, float x, float y, FILE *txtFile){
+	_List to_remove = create_list();
+	rect_tree = dpi(rect_tree, x, y, txtFile, to_remove);
+	rect_tree = remove_points_list(to_remove, rect_tree, swap_two_rect);
+	delete_list(to_remove, 1);
+	return rect_tree;
+}
+
 _Tree dr_wrapper(_Tree rect_tree, char *id_to_search, FILE *txt_file){
 	_List to_remove = create_list();
 	float resultPointWH[4] = {0, 0, 0, 0};
@@ -55,7 +63,7 @@ _Tree fg_wrapper(_Tree rect_tree, _Tree circle_tree, _List to_move, float x, flo
 	for(_Node node = get_first(carlos); node != NULL; node = get_next(node)){
 		delete_list(get_list_info(node), 0);
 	}
-	circle_tree    = remove_points_list(to_remove, circle_tree, swap_two_circle);
+	circle_tree = remove_points_list(to_remove, circle_tree, swap_two_circle);
 	delete_list(to_remove, 0);
 	delete_list(carlos, 0);	
 	return circle_tree;
@@ -65,14 +73,13 @@ void main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile, 
 	open_SVG(svgFile);
 	float x=0, y=0, r=0;
 	char id[40], aux[40];
-	_List dpi_remove_points = create_list(), to_move = create_list();
+	_List to_move = create_list();
 	fprintf(txtFile, "Pedro Antonio Messias Lemos\n");
 	while(fscanf(qryFile, "%s", aux)!=EOF){
 		if((strcmp(aux, "dpi"))==0){
 			fprintf(txtFile, "dpi\n");
 			fscanf(qryFile, "%f %f", &x, &y);
-			rect_tree = dpi(rect_tree, x, y, txtFile, dpi_remove_points);
-			rect_tree = remove_points_list(dpi_remove_points, rect_tree, swap_two_rect);
+			rect_tree = dpi_wrapper(rect_tree, x, y, txtFile);
 		}
 		else if((strcmp(aux, "dr"))==0){
 			fprintf(txtFile, "dr\n");
@@ -88,7 +95,6 @@ void main_qry(_Tree rect_tree, _Tree circle_tree, FILE *qryFile, FILE *txtFile, 
 	circle_tree = insert_points_list(to_move, circle_tree);
 	fill_svg(rect_tree, circle_tree, svgFile);
 	delete_list(to_move, 0);
-	delete_list(dpi_remove_points, 1);
 	delete_tree(rect_tree);
 	delete_tree(circle_tree);
 }
