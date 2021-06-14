@@ -19,6 +19,8 @@ _Tree insert_points_list(_List to_insert, _Tree tree);
 
 _Tree remove_points_list(_List remove_points_list, _Tree tree, void(*swap)(void*, void*));
 
+_Tree dpi(_Tree rect_tree, float x, float y, FILE *txtFile, _List dpi_remove);
+
 _Tree dr(_Tree rect_tree, float *dr_point, _List dr_remove, int depth, FILE *txt_file);
 
 _Tree dr_init(_Tree rect_tree, float *dr_point, _List dr_remove, FILE *txt_file);

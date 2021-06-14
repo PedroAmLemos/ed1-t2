@@ -61,6 +61,26 @@ _Tree insert_points_list(_List to_insert, _Tree tree){
 	return tree;
 
 }
+_Tree dpi(_Tree rect_tree, float x, float y, FILE *txtFile, _List dpi_remove){
+	if(is_null(rect_tree)){
+		return NULL;
+	}
+	dpi(get_kd_right(rect_tree), x, y, txtFile, dpi_remove);
+	dpi(get_kd_left(rect_tree), x, y, txtFile, dpi_remove);
+	_Rect rectangle = get_info(rect_tree);
+	float rectW, rectH;
+	float *point = get_point(rect_tree);
+	rectW = get_rect_w(rectangle);
+	rectH = get_rect_h(rectangle);
+	if(rect_is_inside(x, y, 0, 0, point[0], point[1], rectW, rectH) == 1) {
+		fprintf(txtFile, "%s\n", get_rect_id(rectangle));
+		float *point_remove = malloc(sizeof(float)*2);
+		point_remove[0] = point[0];
+		point_remove[1] = point[1];
+		insert_list(point_remove, dpi_remove);
+	}
+	return rect_tree;
+}
 
 _Tree dr(_Tree rect_tree, float *dr_point, _List dr_remove, int depth, FILE *txt_file){
 	if(is_null(rect_tree)){

@@ -11,27 +11,6 @@
 #include "circle.h"
 #include "qry_treat_utility.h"
 
-_Tree dpi(_Tree rect_tree, float x, float y, FILE *txtFile, _List dpi_remove){
-	if(is_null(rect_tree)){
-		return NULL;
-	}
-	dpi(get_kd_right(rect_tree), x, y, txtFile, dpi_remove);
-	dpi(get_kd_left(rect_tree), x, y, txtFile, dpi_remove);
-	_Rect rectangle = get_info(rect_tree);
-	float rectW, rectH;
-	float *point = get_point(rect_tree);
-	rectW = get_rect_w(rectangle);
-	rectH = get_rect_h(rectangle);
-	if(rect_is_inside(x, y, 0, 0, point[0], point[1], rectW, rectH) == 1) {
-		fprintf(txtFile, "%s\n", get_rect_id(rectangle));
-		float *point_remove = malloc(sizeof(float)*2);
-		point_remove[0] = point[0];
-		point_remove[1] = point[1];
-		insert_list(point_remove, dpi_remove);
-	}
-	return rect_tree;
-}
-
 _Tree dpi_wrapper(_Tree rect_tree, float x, float y, FILE *txtFile){
 	_List to_remove = create_list();
 	rect_tree = dpi(rect_tree, x, y, txtFile, to_remove);
