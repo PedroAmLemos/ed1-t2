@@ -15,9 +15,13 @@ float smaller(float a, float b);
 
 int inter(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2);
 
+int compare_strings(const void* char1, const void* char2);
+
 _Tree insert_points_list(_List to_insert, _Tree tree);
 
 _Tree remove_points_list(_List remove_points_list, _Tree tree, void(*swap)(void*, void*));
+
+_Tree remove_rect_list(_List remove_list, _Tree tree, FILE *txtFile);
 
 _Tree dpi(_Tree rect_tree, float x, float y, FILE *txtFile, _List dpi_remove);
 

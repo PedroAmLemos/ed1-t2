@@ -120,7 +120,7 @@ int delete_list(_List lis, int flag){
     return counter;
 }
 
-int getSizeD(_List lis){
+int get_size(_List lis){
     structList* list=(structList*) lis;
     return list->size;
 }

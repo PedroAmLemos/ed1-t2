@@ -24,6 +24,13 @@ int are_same(float x1, float y1, float x2, float y2, float x3, float y3, float x
 	return x1 == y1 && x2 == y2 && x3 == y3 && x4 == y4;
 }
 
+int compare_strings(const void* char1, const void* char2){
+    const char* char11 = (const char*)char1;
+    const char* char22 = (const char*)char2;
+    return strcmp(char11, char22);
+}
+
+
 float larger(float a, float b){
     if(a>b){
         return a;
@@ -45,7 +52,25 @@ _Tree remove_points_list(_List remove_points_list, _Tree tree, void(*swap)(void*
 	for(_Node node = get_first(remove_points_list); node!=NULL; node=get_next(node)){
 		point = get_list_info(node);
 		tree = delete_node_init(tree, point, swap);
+	}
+	return tree;
+}
 
+_Tree remove_rect_list(_List remove_list, _Tree tree, FILE *txtFile){
+	int size = get_size(remove_list), index = 0;
+	float *point; 
+	_Rect rectangle;
+	char ids[size][40];
+	for(_Node node = get_first(remove_list); node!=NULL; node=get_next(node)){
+		rectangle = get_list_info(node);
+		point = get_rect_point(rectangle);
+		strcpy(ids[index], get_rect_id(rectangle));
+		tree = delete_node_init(tree, point, swap_two_rect);
+		index++;
+	}
+	qsort(ids, index, sizeof(ids[0]), compare_strings);
+	for(int i = 0; i < index; i++){
+		fprintf(txtFile, "%s\n", ids[i]);
 	}
 	return tree;
 }
@@ -59,8 +84,8 @@ _Tree insert_points_list(_List to_insert, _Tree tree){
 		tree = insert_kd_init(tree, point, circle);
 	}
 	return tree;
-
 }
+
 _Tree dpi(_Tree rect_tree, float x, float y, FILE *txtFile, _List dpi_remove){
 	if(is_null(rect_tree)){
 		return NULL;
@@ -73,11 +98,7 @@ _Tree dpi(_Tree rect_tree, float x, float y, FILE *txtFile, _List dpi_remove){
 	rectW = get_rect_w(rectangle);
 	rectH = get_rect_h(rectangle);
 	if(rect_is_inside(x, y, 0, 0, point[0], point[1], rectW, rectH) == 1) {
-		fprintf(txtFile, "%s\n", get_rect_id(rectangle));
-		float *point_remove = malloc(sizeof(float)*2);
-		point_remove[0] = point[0];
-		point_remove[1] = point[1];
-		insert_list(point_remove, dpi_remove);
+		insert_list(rectangle, dpi_remove);
 	}
 	return rect_tree;
 }
@@ -94,11 +115,8 @@ _Tree dr(_Tree rect_tree, float *dr_point, _List dr_remove, int depth, FILE *txt
 	float intRectX = get_rect_x(rectangle), intRectY = get_rect_y(rectangle), intRectW = get_rect_w(rectangle), intRectH = get_rect_h(rectangle);
 	int same = are_same(dr_point[0], intRectX, dr_point[1], intRectY, dr_point[2], intRectW, dr_point[3], intRectH);
 	if((rect_is_inside(intRectX, intRectY, intRectW, intRectH, dr_point[0], dr_point[1], dr_point[2], dr_point[3]) == 1) && same==0){
-		fprintf(txt_file, "%s\n", get_rect_id(rectangle));
-		float *point_remove = malloc(sizeof(float)*2);
-		point_remove[0] = intRectX;
-		point_remove[1] = intRectY;
-		insert_list(point_remove, dr_remove);
+		//fprintf(txt_file, "%s\n", get_rect_id(rectangle));
+		insert_list(rectangle, dr_remove);
 	}
 	return rect_tree;
 }
@@ -112,7 +130,6 @@ _Tree dr_init(_Tree rect_tree, float *dr_point, _List dr_remove, FILE *txt_file)
 }
 
 _Tree fg(_Tree rect_tree, _Tree circle_tree, float point[2], float r, FILE *txtFile, FILE *svgFile, _List to_move, _List to_remove, _List carlos){
-	// lista para o print --> lprint
 	if(is_null(circle_tree)){
 		return NULL;
 	}

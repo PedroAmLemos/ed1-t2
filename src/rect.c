@@ -93,7 +93,7 @@ void print_rect(FILE *svgFile, _Rect rectangle){
 		fprintf(svgFile,"\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" fill=\"%s\" opacity=\"0.5\" stroke=\"%s\"/>\n",get_rect_x(rect),get_rect_y(rect), rect->w, rect->h, rect->cc, rect->cp);
 	}else{
 		fprintf(svgFile,"\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" fill=\"%s\" opacity=\"0.5\" stroke=\"%s\"/>\n",get_rect_x(rect),get_rect_y(rect), rect->w, rect->h, rect->cc, rect->cp);
-		fprintf(svgFile,"\t<text text-anchor=\"start\" x=\"%f\" y=\"%f\" font-size=\"0.05em\">n abrigados :: %d</text>\n", get_rect_x(rect), get_rect_y(rect), n);
+		fprintf(svgFile,"\t<text text-anchor=\"start\" x=\"%f\" y=\"%f\" font-size=\"1px\">n abrigados :: %d</text>\n", get_rect_x(rect), get_rect_y(rect), n);
 
 	}
 }
