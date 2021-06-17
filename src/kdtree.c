@@ -79,7 +79,7 @@ _Info get_info(_Tree tree){
 	return root->info;
 }
 
-void* get_point(_Tree tree){
+float *get_point(_Tree tree){
 	Tree* root = (Tree*) tree;
 	return root->point;
 }
@@ -244,12 +244,3 @@ void find_nearest_neighbor_init(_Tree tree, float *point, _Rect *result){
 	find_nearest_neighbor(tree, point, 0, result, 0);
 }
 
-_Tree print_all_rect(_Tree tree){
-	Tree *root = tree;
-	if(root==NULL)
-		return NULL;
-	print_all_rect(root->right);
-	print_all_rect(root->left);
-	printf("%s\n", get_rect_cc(get_info(root)));
-	return root;
-}
